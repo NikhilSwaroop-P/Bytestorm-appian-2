@@ -106,3 +106,54 @@ The pipeline processes inputs through a series of specialized modules that analy
 - Streamlined checkout processes
 
 This architecture provides a complete end-to-end solution for AI-driven shopping experiences, from initial product search to final purchase confirmation. 
+
+````markdown
+
+## 🚀 How to Use
+
+### 1. 📥 Clone the Repository
+
+```bash
+git clone https://github.com/your-username/your-repo-name.git
+cd your-repo-name
+````
+
+### 2. 🔑 Set Your API Key
+
+**On macOS/Linux:**
+
+```bash
+export VOYAGE_API_KEY=your_api_key_here
+```
+
+**On Windows (Command Prompt):**
+
+```cmd
+set VOYAGE_API_KEY=your_api_key_here
+```
+
+### 3. 📦 Install Dependencies
+
+Make sure you have Python 3.8+ installed, then install the required packages:
+
+```bash
+pip install -r requirements.txt
+```
+
+### 4. ▶️ Run the Application
+
+```bash
+python run_frontend.py
+```
+
+### 5. 🌐 Access the UI
+
+Open your browser and go to:
+
+```
+http://localhost:8000
+```
+
+```
+```
+
