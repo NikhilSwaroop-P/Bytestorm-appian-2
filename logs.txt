@@ -1,3 +1,20 @@
+2025-05-25 11:54:25,purchased,LED 9W PK 12,,,₹532.01,ratings:None,0
+2025-05-25 11:53:58,view,LipiWorld® RM-1180M -1(N2QAYB000823 N2QAYB000486 N2QAYB000820 N2QAYB000487 N2QAYB000752 N2QAYB000572) Remote Compatible wi...,white,modern, painting, Philips, LED lighting, minimalist, fireplace, wooden, floor, door, Decor,₹319,ratings:4.3,246
+2025-05-25 11:53:54,view,Bajaj Frore EE 1200 mm Brown Ceiling Fan,white,modern, painting, Philips, LED lighting, minimalist, fireplace, wooden, floor, door,₹1,599,ratings:,
+2025-05-25 11:53:51,view,LipiWorld® RM-1180M -1(N2QAYB000823 N2QAYB000486 N2QAYB000820 N2QAYB000487 N2QAYB000752 N2QAYB000572) Remote Compatible wi...,white,modern, painting, Philips, LED lighting, minimalist, fireplace, wooden, floor, door,₹319,ratings:4.3,246
+2025-05-25 11:53:44,search,give me more decor,
+2025-05-25 11:53:31,view,Sony Bravia 108 cm (43 inches) 4K Ultra HD Smart LED Google TV KD-43X75K (Black) (2022 Model) | with Alexa Compatibility,white,modern, painting, Philips, LED lighting, minimalist, fireplace, wooden, floor, door,₹46,540,ratings:4.7,1624
+2025-05-25 11:53:30,view,Epson 003 65 ml for EcoTank L1110/L3100/L3101/L3110/L3115/L3116/L3150/L3151/L3152/L3156/L5190 Black Ink Bottle,white,modern, painting, Philips, LED lighting, minimalist, fireplace, wooden, floor, door,₹309,ratings:4.4,8901
+2025-05-25 11:51:34,purchased,steam iron teflon shoe ES-300,,,₹290,ratings:3.3,24
+2025-05-25 11:51:08,view,steam iron teflon shoe ES-300,black,Philips, adjustable temperature settings, non-stick soleplate, teal, iron,₹290,ratings:3.3,24
+2025-05-25 11:50:55,view,CHARTBUSTERS Non-Stick Compact Light Weight Dry Iron, Multicolour,black,Philips, adjustable temperature settings, non-stick soleplate, teal, iron,₹299,ratings:3.8,129
+2025-05-25 11:50:50,view,Amazon Brand - Solimo 1000-Watt Dry Iron (White and Turquoise),black,Philips, adjustable temperature settings, non-stick soleplate, teal, iron,₹499,ratings:4.1,7821
+2025-05-25 11:50:42,view,Philips GC1022 2000-Watt Steam Iron (Pink),black,Philips, adjustable temperature settings, non-stick soleplate, teal, iron,₹2,300,ratings:3.7,262
+2025-05-25 11:50:40,view,Black + Decker Steam Iron Press 2400-Watt with Auto Shut Off and Ceramic Sole Plate Coating (Blue),black,Philips, adjustable temperature settings, non-stick soleplate, teal, iron,₹3,699,ratings:3.8,1320
+2025-05-25 11:50:39,search,under price 500 rupees,
+2025-05-25 11:49:34,search,power greater than 1100 watts,
+2025-05-25 11:49:01,view,Chartbusters Dry Iron with Non-Stick Coated Soleplate (Multicolor) NP-0019,black,Philips, adjustable temperature settings, non-stick soleplate, teal, iron,₹299,ratings:5,2
+2025-05-25 11:48:46,search,give me black philips iron,
 view,USHA EI 3702 1000-Watt Dry Iron (Blue),white,Philips, dry iron, temperature control, non-stick soleplate,₹714,ratings:4.1,433
 view,Bajaj Majesty Travellesta 800 Watts Travel Friendly Steam Iron (White & Blue),white,Philips, dry iron, temperature control, non-stick soleplate,₹1,449,ratings:4,76
 view,Orpat OEI 187 1200-Watt Dry Iron (White and Blue),white,Philips, dry iron, temperature control, non-stick soleplate,₹710,ratings:4.1,20673

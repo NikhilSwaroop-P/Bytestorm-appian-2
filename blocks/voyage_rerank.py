@@ -1,6 +1,8 @@
 import voyageai
+import os
 
-vo = voyageai.Client(api_key="pa-XQAgthfL8fQaoJWkagJgqOj6BTRbRlTKW-z-W_FLaDq")
+vo = voyageai.Client(api_key=os.environ.get("VOYAGE_API_KEY"))
+
 
 def rerank_products(indices, metadata, current_text, k = 50):
 

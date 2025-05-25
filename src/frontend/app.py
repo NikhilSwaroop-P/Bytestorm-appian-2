@@ -31,14 +31,17 @@ def log_interaction(interaction_type, product_info):
         timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         
         if interaction_type == 'search':
-            log_entry = f"{interaction_type},{product_info.get('query', '')},{product_info.get('filters', '')}"
+            log_entry = f"{timestamp},{interaction_type},{product_info.get('query', '')},{product_info.get('filters', '')}"
         else:  # purchased or view
-            log_entry = (f"{interaction_type},{product_info.get('title', '')},"
+            log_entry = (f"{timestamp},{interaction_type},{product_info.get('title', '')},"
                         f"{product_info.get('color', '')},"
                         f"{product_info.get('specs', '')},"
                         f"{product_info.get('price', '')},"
                         f"ratings:{product_info.get('rating', '')},"
                         f"{product_info.get('rating_count', '')}")
+        
+        # Print log entry for debugging
+        print(f"Logging interaction: {log_entry}")
         
         # Read existing logs
         existing_logs = []
@@ -74,6 +77,9 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(
 from blocks import image_extractions
 from main_pipeline import main_pipeline
 
+# Global variable to track if automation is available
+HAS_AUTOMATION = False
+
 # Database setup
 db = SQLAlchemy()
 
@@ -101,13 +107,13 @@ class User(UserMixin, db.Model):
         return bool(self.card_number and self.card_expiry and self.card_holder)
 
 def create_app():
+    global HAS_AUTOMATION
     app = Flask(__name__)
     app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max upload size
     app.secret_key = os.environ.get('SECRET_KEY', 'dev_key_for_session')  # Required for sessions
     app.json.encoder = NumpyEncoder  # Use custom JSON encoder for NumPy types
 
     # Import checkout automation controller if available
-    HAS_AUTOMATION = False
     try:
         automation_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'scripts', 'automation')
         sys.path.append(automation_dir)
@@ -491,6 +497,7 @@ def create_app():
         try:
             data = request.json
             product_id = data.get('product_id')
+            product_data = data.get('product_data', {})
             
             if not product_id:
                 return jsonify({
@@ -501,9 +508,28 @@ def create_app():
             # Create a mock checkout session ID
             session_id = str(uuid.uuid4())
             
+            # Make sure image URL is properly set
+            if 'image_url' in product_data and product_data['image_url']:
+                # Image URL already exists and is valid
+                pass
+            elif 'image_path' in product_data and product_data['image_path']:
+                # If no image_url but image_path exists, use it as a fallback
+                if product_data['image_path'].startswith('http'):
+                    # If it's already a URL, use it directly
+                    product_data['image_url'] = product_data['image_path']
+                else:
+                    # If it's a local path, we need to handle it differently
+                    # For demonstration, we'll just note this in logs
+                    print(f"Local image path detected: {product_data['image_path']}")
+                    # Could serve this through a local route if needed
+            
+            # Debug log
+            print(f"Checkout session created with product data: {product_data}")
+            
             # Store session information (in a real app, this would be in a database)
             mock_checkout_sessions[session_id] = {
                 'product_id': product_id,
+                'product_data': product_data,  # Store the product data from the request
                 'status': 'pending',
                 'created_at': time.time()
             }
@@ -537,30 +563,54 @@ def create_app():
         product_id = session_data.get('product_id')
         product_info = None
         
+        # Print debug info about the session data
+        print(f"DEBUG - Checkout session data: {session_data}")
+        
         # In a real app, this would fetch from a database
         # For demo, we'll generate mock product data
         if product_id:
             try:
-                # Convert product_id to int for indexing if needed
-                idx = int(product_id) if product_id.isdigit() else 0
-                
-                # For demo purposes, create mock product data
-                product_info = {
-                    'id': product_id,
-                    'title': f"Product #{product_id}",
-                    'price': "₹499",
-                    'actual_price': "₹599",
-                    'image_url': "/static/img/product-placeholder.jpg",
-                    'description': "Product description not available",
-                    'quantity': 1
-                }
-                
-                # If we have this product in our session, use that data
-                if 'product_data' in session_data:
+                # Check if we have product data in the session
+                if 'product_data' in session_data and session_data['product_data']:
+                    print(f"DEBUG - Using product data from session: {session_data['product_data']}")
                     product_info = session_data['product_data']
+                    
+                    # Make sure image_url is properly formatted
+                    if 'image_url' in product_info and product_info['image_url']:
+                        if not product_info['image_url'].startswith(('http://', 'https://', '/')):
+                            # This is a local file path, not a web URL
+                            print(f"DEBUG - Converting local path to URL: {product_info['image_url']}")
+                            # For demonstration, we'll convert to a web URL (in real app, serve through a local route)
+                            # Extract just the filename from the path
+                            image_filename = os.path.basename(product_info['image_url'])
+                            product_info['local_image_path'] = product_info['image_url']  # Save original path
+                            # Use a route that can serve this file
+                            product_info['image_url'] = f"/dataset-images/{image_filename}"
+                    
+                    elif 'image_path' in product_info and product_info['image_path']:
+                        # If no image_url but image_path exists, use it
+                        if not product_info['image_path'].startswith(('http://', 'https://', '/')):
+                            # Extract just the filename
+                            image_filename = os.path.basename(product_info['image_path'])
+                            product_info['image_url'] = f"/dataset-images/{image_filename}"
+                        else:
+                            product_info['image_url'] = product_info['image_path']
+                else:
+                    # For demo purposes, create mock product data
+                    print("DEBUG - No product data in session, using mock data")
+                    product_info = {
+                        'id': product_id,
+                        'title': f"Product #{product_id}",
+                        'price': "₹499",
+                        'actual_price': "₹599",
+                        'image_url': "/static/img/product-placeholder.jpg",
+                        'description': "Product description not available",
+                        'quantity': 1
+                    }
                 
                 # Store product data in session for later use
                 session_data['product_data'] = product_info
+                print(f"DEBUG - Final product info for checkout: {product_info}")
                 
             except Exception as e:
                 print(f"Error getting product info: {e}")
@@ -694,7 +744,9 @@ def create_app():
         
         # Calculate discount based on promo code
         discount = 0
-        promo_code = form_data.get('promo_code', '').upper()
+        promo_code = ""
+        if form_data.get('promo_code'):
+            promo_code = form_data.get('promo_code', '').upper()
         
         # Get product price for discount calculation
         product_info = session_data.get('product_data', {})
@@ -711,6 +763,9 @@ def create_app():
             discount = int(price_value * 0.1)  # 10% off
         elif promo_code == 'SAVE20' and price_value >= 100:
             discount = 20  # ₹20 off if order over ₹100
+        elif promo_code == 'FREESHIP':
+            # No monetary discount, but will affect shipping cost in checkout_success
+            pass
         
         # Store discount information
         form_data['discount'] = discount
@@ -736,7 +791,11 @@ def create_app():
                 'rating': product_info.get('rating', ''),
                 'rating_count': product_info.get('rating_count', '')
             }
-            log_interaction('purchased', purchase_info)
+            print(f"Logging purchase for product: {purchase_info['title']}")
+            log_success = log_interaction('purchased', purchase_info)
+            print(f"Purchase logging successful: {log_success}")
+        else:
+            print("No product info available for purchase logging")
         
         # If the user is logged in and the save_card option is checked, save card details
         if current_user.is_authenticated and form_data['save_card']:
@@ -771,7 +830,8 @@ def create_app():
             shipping_cost = 100
         
         # Check for free shipping coupon
-        if form_data.get('promo_code', '').upper() == 'FREESHIP':
+        promo_code = form_data.get('promo_code', '')
+        if promo_code and promo_code.upper() == 'FREESHIP':
             shipping_cost = 0
         
         order_info = {

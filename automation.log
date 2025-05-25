@@ -505,3 +505,205 @@
 2025-05-25 10:21:26,525 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 10:21:26] "GET /static/img/product-placeholder.jpg HTTP/1.1" 200 -
 2025-05-25 10:21:45,252 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 10:21:45] "GET /checkout/success/03a41cfc-8bfc-4c68-8bb8-e593a07ace74 HTTP/1.1" 200 -
 2025-05-25 10:21:45,295 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 10:21:45] "[36mGET /static/img/product-placeholder.jpg HTTP/1.1[0m" 304 -
+2025-05-25 11:42:26,526 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.29.66:5000
+2025-05-25 11:42:26,526 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-25 11:42:26,533 - werkzeug - INFO -  * Restarting with stat
+2025-05-25 11:42:51,824 - werkzeug - WARNING -  * Debugger is active!
+2025-05-25 11:42:51,898 - werkzeug - INFO -  * Debugger PIN: 881-999-907
+2025-05-25 11:42:52,024 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:42:52] "GET / HTTP/1.1" 200 -
+2025-05-25 11:42:52,270 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:42:52] "GET /static/css/style.css HTTP/1.1" 200 -
+2025-05-25 11:42:52,275 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:42:52] "GET /static/js/app.js HTTP/1.1" 200 -
+2025-05-25 11:42:55,070 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:42:55] "GET / HTTP/1.1" 200 -
+2025-05-25 11:42:55,111 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:42:55] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-05-25 11:42:55,331 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:42:55] "[36mGET /static/js/app.js HTTP/1.1[0m" 304 -
+2025-05-25 11:42:59,805 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:42:59] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-05-25 11:42:59,875 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:42:59] "GET / HTTP/1.1" 200 -
+2025-05-25 11:43:00,051 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:43:00] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-05-25 11:43:00,250 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:43:00] "[36mGET /static/js/app.js HTTP/1.1[0m" 304 -
+2025-05-25 11:46:17,358 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:46:17] "GET /register HTTP/1.1" 200 -
+2025-05-25 11:46:17,470 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:46:17] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-05-25 11:46:43,058 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:46:43] "[32mPOST /register HTTP/1.1[0m" 302 -
+2025-05-25 11:46:43,080 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:46:43] "GET /login HTTP/1.1" 200 -
+2025-05-25 11:46:43,431 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:46:43] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-05-25 11:46:54,717 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:46:54] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-05-25 11:46:54,736 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:46:54] "GET / HTTP/1.1" 200 -
+2025-05-25 11:46:55,104 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:46:55] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-05-25 11:46:55,112 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:46:55] "[36mGET /static/js/app.js HTTP/1.1[0m" 304 -
+2025-05-25 11:47:18,342 - main_pipeline - DEBUG - Starting main_pipeline with: modification_text='', reset=True, image_path=C:\Users\monar\AppData\Local\Temp\appain_uploads\img2.jpg
+2025-05-25 11:47:18,344 - main_pipeline - DEBUG - Initial state: current_text='blue iron', back_bone='iron'
+2025-05-25 11:47:20,863 - main_pipeline - DEBUG - Reset is True: extracting base description
+2025-05-25 11:47:22,967 - main_pipeline - DEBUG - Intent result: {'intent': 0}
+2025-05-25 11:47:22,968 - main_pipeline - DEBUG - No special intent, proceeding with image extraction
+2025-05-25 11:47:22,969 - main_pipeline - DEBUG - Extracting description from image: C:\Users\monar\AppData\Local\Temp\appain_uploads\img2.jpg
+2025-05-25 11:47:25,499 - main_pipeline - DEBUG - Image description extracted: back_bone='Dry Clothes Iron - Iron for removing wrinkles from clothing. - Appliances', current_text='Prestige Dry Iron PI 2.0 - The Prestige dry iron with adjustable temperature settings, and non-stick soleplate in white/teal. - Prestige White/Teal Appliances'
+2025-05-25 11:47:30,124 - main_pipeline - DEBUG - Modifying query based on image: C:\Users\monar\AppData\Local\Temp\appain_uploads\img2.jpg
+2025-05-25 11:47:30,162 - main_pipeline - DEBUG - Adding delay between steps
+2025-05-25 11:47:32,413 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-25 11:47:32,459 - main_pipeline - DEBUG - Adding delay between steps
+2025-05-25 11:47:33,461 - main_pipeline - DEBUG - Updating current_text with general query: 'Philips dry iron 1000W white temperature control non-stick soleplate'
+2025-05-25 11:47:34,406 - main_pipeline - DEBUG - Text updated: 'Prestige Dry Iron PI 2.0 - The Prestige dry iron with adjustable temperature settings, and non-stick soleplate in white/teal. - Prestige White/Teal Appliances' -> 'Philips dry iron with adjustable temperature settings, non-stick soleplate, and white/teal exterior'
+2025-05-25 11:47:34,407 - main_pipeline - DEBUG - Adding delay between steps
+2025-05-25 11:47:36,739 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-25 11:47:36,761 - main_pipeline - DEBUG - Special case dictionary: {'price': [0, 1000], 'rating': None, 'rating_count': None}
+2025-05-25 11:47:36,762 - main_pipeline - DEBUG - Adding delay between steps
+2025-05-25 11:47:37,766 - main_pipeline - DEBUG - Checking for conflicts between current text and modification
+2025-05-25 11:47:51,869 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-25 11:47:51,872 - main_pipeline - DEBUG - Conflict detected: False
+2025-05-25 11:47:51,874 - main_pipeline - DEBUG - Adding delay between steps
+2025-05-25 11:47:52,877 - main_pipeline - DEBUG - Retrieving and reranking due to conflict=False or reset=True
+2025-05-25 11:48:02,829 - main_pipeline - DEBUG - Reranking with voyage_rerank
+2025-05-25 11:48:03,786 - main_pipeline - DEBUG - Reranked to 50 items
+2025-05-25 11:48:03,789 - main_pipeline - DEBUG - Applying special case filtering
+2025-05-25 11:48:03,794 - main_pipeline - DEBUG - Extracting tags from current text: 'Philips dry iron with adjustable temperature settings, non-stick soleplate, and white/teal exterior'
+2025-05-25 11:48:06,031 - main_pipeline - DEBUG - Extracted tags: ['Philips', 'dry iron', 'adjustable temperature settings', 'non-stick soleplate', 'white', 'teal']
+2025-05-25 11:48:06,037 - main_pipeline - DEBUG - Pipeline completed. Returning 50 items
+2025-05-25 11:48:06,055 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:48:06] "POST /api/search HTTP/1.1" 200 -
+2025-05-25 11:48:46,145 - main_pipeline - DEBUG - Starting main_pipeline with: modification_text='give me black philips iron', reset=False, image_path=C:\Users\monar\AppData\Local\Temp\appain_uploads\img2.jpg
+2025-05-25 11:48:46,153 - main_pipeline - DEBUG - Initial state: current_text='Philips dry iron with adjustable temperature settings, non-stick soleplate, and white/teal exterior', back_bone='Dry Clothes Iron - Iron for removing wrinkles from clothing. - Appliances'
+2025-05-25 11:48:46,885 - main_pipeline - DEBUG - Modifying query based on image: C:\Users\monar\AppData\Local\Temp\appain_uploads\img2.jpg
+2025-05-25 11:48:46,888 - main_pipeline - DEBUG - Modified query: 'give me black philips iron'
+2025-05-25 11:48:46,893 - main_pipeline - DEBUG - Adding delay between steps
+2025-05-25 11:48:47,900 - main_pipeline - DEBUG - Splitting query: 'give me black philips iron'
+2025-05-25 11:48:49,005 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-25 11:48:49,007 - main_pipeline - DEBUG - Query dict after splitting: {'general': 'black philips iron', 'special': ''}
+2025-05-25 11:48:49,009 - main_pipeline - DEBUG - Adding delay between steps
+2025-05-25 11:48:50,011 - main_pipeline - DEBUG - Updating current_text with general query: 'black philips iron'
+2025-05-25 11:48:50,890 - main_pipeline - DEBUG - Text updated: 'Philips dry iron with adjustable temperature settings, non-stick soleplate, and white/teal exterior' -> 'black Philips iron with adjustable temperature settings, non-stick soleplate, and white/teal exterior'
+2025-05-25 11:48:50,891 - main_pipeline - DEBUG - Adding delay between steps
+2025-05-25 11:48:51,892 - main_pipeline - DEBUG - Checking for conflicts between current text and modification
+2025-05-25 11:48:52,250 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-25 11:48:52,257 - main_pipeline - DEBUG - Conflict detected: False
+2025-05-25 11:48:52,261 - main_pipeline - DEBUG - Adding delay between steps
+2025-05-25 11:48:53,269 - main_pipeline - DEBUG - No conflict/reset - using rerank_only path
+2025-05-25 11:48:54,075 - main_pipeline - DEBUG - No special filtering needed
+2025-05-25 11:48:54,076 - main_pipeline - DEBUG - Extracting tags from current text: 'black Philips iron with adjustable temperature settings, non-stick soleplate, and white/teal exterior'
+2025-05-25 11:48:55,968 - main_pipeline - DEBUG - Extracted tags: ['black', 'Philips', 'adjustable temperature settings', 'non-stick soleplate', 'white', 'teal', 'iron']
+2025-05-25 11:48:55,969 - main_pipeline - DEBUG - Pipeline completed. Returning 50 items
+2025-05-25 11:48:55,970 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:48:55] "POST /api/search HTTP/1.1" 200 -
+2025-05-25 11:49:01,408 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:49:01] "POST /api/view-product HTTP/1.1" 200 -
+2025-05-25 11:49:34,049 - main_pipeline - DEBUG - Starting main_pipeline with: modification_text='power greater than 1100 watts', reset=False, image_path=C:\Users\monar\AppData\Local\Temp\appain_uploads\img2.jpg
+2025-05-25 11:49:34,050 - main_pipeline - DEBUG - Initial state: current_text='black Philips iron with adjustable temperature settings, non-stick soleplate, and white/teal exterior', back_bone='Dry Clothes Iron - Iron for removing wrinkles from clothing. - Appliances'
+2025-05-25 11:49:34,799 - main_pipeline - DEBUG - Modifying query based on image: C:\Users\monar\AppData\Local\Temp\appain_uploads\img2.jpg
+2025-05-25 11:49:34,801 - main_pipeline - DEBUG - Modified query: 'power greater than 1100 watts'
+2025-05-25 11:49:34,802 - main_pipeline - DEBUG - Adding delay between steps
+2025-05-25 11:49:35,803 - main_pipeline - DEBUG - Splitting query: 'power greater than 1100 watts'
+2025-05-25 11:49:36,608 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-25 11:49:36,611 - main_pipeline - DEBUG - Query dict after splitting: {'general': '', 'special': 'power greater than 1100 watts'}
+2025-05-25 11:49:36,611 - main_pipeline - DEBUG - Adding delay between steps
+2025-05-25 11:49:37,613 - main_pipeline - DEBUG - Processing special case from query: power greater than 1100 watts
+2025-05-25 11:49:37,967 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2025-05-25 11:49:37,972 - main_pipeline - DEBUG - Special case dictionary: {'price': None, 'rating': None, 'rating_count': None}
+2025-05-25 11:49:37,978 - main_pipeline - DEBUG - Adding delay between steps
+2025-05-25 11:49:38,981 - main_pipeline - DEBUG - Checking for conflicts between current text and modification
+2025-05-25 11:49:39,354 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-25 11:49:39,359 - main_pipeline - DEBUG - Conflict detected: False
+2025-05-25 11:49:39,362 - main_pipeline - DEBUG - Adding delay between steps
+2025-05-25 11:49:40,366 - main_pipeline - DEBUG - No conflict/reset - using rerank_only path
+2025-05-25 11:49:41,207 - main_pipeline - DEBUG - Applying special case filtering
+2025-05-25 11:49:41,208 - main_pipeline - DEBUG - Extracting tags from current text: 'black Philips iron with adjustable temperature settings, non-stick soleplate, and white/teal exterior'
+2025-05-25 11:49:43,444 - main_pipeline - DEBUG - Extracted tags: ['black', 'Philips', 'adjustable temperature settings', 'non-stick soleplate', 'white', 'teal', 'iron']
+2025-05-25 11:49:43,448 - main_pipeline - DEBUG - Pipeline completed. Returning 50 items
+2025-05-25 11:49:43,452 - main_pipeline - DEBUG - Applying fast special filter with 1 filters
+2025-05-25 11:50:06,603 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:50:06] "POST /api/search HTTP/1.1" 200 -
+2025-05-25 11:50:39,457 - main_pipeline - DEBUG - Starting main_pipeline with: modification_text='under price 500 rupees', reset=False, image_path=C:\Users\monar\AppData\Local\Temp\appain_uploads\img2.jpg
+2025-05-25 11:50:39,458 - main_pipeline - DEBUG - Initial state: current_text='black Philips iron with adjustable temperature settings, non-stick soleplate, and white/teal exterior', back_bone='Dry Clothes Iron - Iron for removing wrinkles from clothing. - Appliances'
+2025-05-25 11:50:40,102 - main_pipeline - DEBUG - Modifying query based on image: C:\Users\monar\AppData\Local\Temp\appain_uploads\img2.jpg
+2025-05-25 11:50:40,105 - main_pipeline - DEBUG - Modified query: 'under price 500 rupees'
+2025-05-25 11:50:40,108 - main_pipeline - DEBUG - Adding delay between steps
+2025-05-25 11:50:40,541 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:50:40] "POST /api/view-product HTTP/1.1" 200 -
+2025-05-25 11:50:41,111 - main_pipeline - DEBUG - Splitting query: 'under price 500 rupees'
+2025-05-25 11:50:41,890 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-25 11:50:41,892 - main_pipeline - DEBUG - Query dict after splitting: {'general': '', 'special': 'under price 500 rupees'}
+2025-05-25 11:50:41,894 - main_pipeline - DEBUG - Adding delay between steps
+2025-05-25 11:50:42,869 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:50:42] "POST /api/view-product HTTP/1.1" 200 -
+2025-05-25 11:50:42,895 - main_pipeline - DEBUG - Processing special case from query: under price 500 rupees
+2025-05-25 11:50:43,657 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-25 11:50:43,661 - main_pipeline - DEBUG - Special case dictionary: {'price': [0, 500], 'rating': None, 'rating_count': None}
+2025-05-25 11:50:43,662 - main_pipeline - DEBUG - Adding delay between steps
+2025-05-25 11:50:44,666 - main_pipeline - DEBUG - Checking for conflicts between current text and modification
+2025-05-25 11:50:45,010 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-25 11:50:45,014 - main_pipeline - DEBUG - Conflict detected: False
+2025-05-25 11:50:45,015 - main_pipeline - DEBUG - Adding delay between steps
+2025-05-25 11:50:46,017 - main_pipeline - DEBUG - No conflict/reset - using rerank_only path
+2025-05-25 11:50:46,900 - main_pipeline - DEBUG - Applying special case filtering
+2025-05-25 11:50:46,901 - main_pipeline - DEBUG - Extracting tags from current text: 'black Philips iron with adjustable temperature settings, non-stick soleplate, and white/teal exterior'
+2025-05-25 11:50:49,101 - main_pipeline - DEBUG - Extracted tags: ['black', 'Philips', 'adjustable temperature settings', 'non-stick soleplate', 'white', 'teal', 'iron']
+2025-05-25 11:50:49,102 - main_pipeline - DEBUG - Pipeline completed. Returning 50 items
+2025-05-25 11:50:49,106 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:50:49] "POST /api/search HTTP/1.1" 200 -
+2025-05-25 11:50:50,533 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:50:50] "POST /api/view-product HTTP/1.1" 200 -
+2025-05-25 11:50:56,010 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:50:56] "POST /api/view-product HTTP/1.1" 200 -
+2025-05-25 11:51:08,039 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:51:08] "POST /api/checkout HTTP/1.1" 200 -
+2025-05-25 11:51:08,350 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:51:08] "GET /checkout/f83fc2aa-5065-4961-8f9b-c97e7da3e2bc HTTP/1.1" 200 -
+2025-05-25 11:51:08,381 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:51:08] "POST /api/view-product HTTP/1.1" 200 -
+2025-05-25 11:51:08,428 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:51:08] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-05-25 11:51:08,684 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:51:08] "[33mGET /static/css/checkout.css HTTP/1.1[0m" 404 -
+2025-05-25 11:51:08,704 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:51:08] "GET /static/css/ai-checkout.css HTTP/1.1" 200 -
+2025-05-25 11:51:34,101 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:51:34] "[32mPOST /checkout/complete/f83fc2aa-5065-4961-8f9b-c97e7da3e2bc HTTP/1.1[0m" 302 -
+2025-05-25 11:51:34,458 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:51:34] "GET /checkout/success/f83fc2aa-5065-4961-8f9b-c97e7da3e2bc HTTP/1.1" 200 -
+2025-05-25 11:51:45,256 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:51:45] "GET / HTTP/1.1" 200 -
+2025-05-25 11:51:45,314 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:51:45] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-05-25 11:51:45,525 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:51:45] "[36mGET /static/js/app.js HTTP/1.1[0m" 304 -
+2025-05-25 11:52:34,741 - main_pipeline - DEBUG - Starting main_pipeline with: modification_text='', reset=True, image_path=C:\Users\monar\AppData\Local\Temp\appain_uploads\img3.jpg
+2025-05-25 11:52:34,742 - main_pipeline - DEBUG - Initial state: current_text='black Philips iron with adjustable temperature settings, non-stick soleplate, and white/teal exterior', back_bone='Dry Clothes Iron - Iron for removing wrinkles from clothing. - Appliances'
+2025-05-25 11:52:35,821 - main_pipeline - DEBUG - Reset is True: extracting base description
+2025-05-25 11:52:38,620 - main_pipeline - DEBUG - Intent result: {'intent': 1, 'recommendations_query': 'modern painting, recessed lighting, minimalist fireplace, wooden floor, white door'}
+2025-05-25 11:52:38,626 - main_pipeline - DEBUG - Special intent detected
+2025-05-25 11:52:38,629 - main_pipeline - DEBUG - Intent is special, current_text is now: modern painting, recessed lighting, minimalist fireplace, wooden floor, white door
+2025-05-25 11:52:38,632 - main_pipeline - DEBUG - No image path, extracting from text
+2025-05-25 11:52:39,822 - main_pipeline - DEBUG - Text split: back_bone='painting, lighting, fireplace, floor, door', current_text='modern painting, recessed lighting, minimalist fireplace, wooden floor, white door'
+2025-05-25 11:52:44,947 - main_pipeline - DEBUG - Splitting query: 'Philips LED lighting white modern'
+2025-05-25 11:52:45,704 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-25 11:52:45,709 - main_pipeline - DEBUG - Query dict after splitting: {'general': 'Philips LED lighting white modern', 'special': ''}
+2025-05-25 11:52:45,709 - main_pipeline - DEBUG - Adding delay between steps
+2025-05-25 11:52:46,710 - main_pipeline - DEBUG - Updating current_text with general query: 'Philips LED lighting white modern'
+2025-05-25 11:52:47,639 - main_pipeline - DEBUG - Text updated: 'modern painting, recessed lighting, minimalist fireplace, wooden floor, white door' -> 'modern painting, Philips LED lighting, minimalist fireplace, wooden floor, white door'
+2025-05-25 11:52:47,641 - main_pipeline - DEBUG - Adding delay between steps
+2025-05-25 11:52:48,645 - main_pipeline - DEBUG - Checking for conflicts between current text and modification
+2025-05-25 11:52:49,334 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-25 11:52:49,345 - main_pipeline - DEBUG - Conflict detected: False
+2025-05-25 11:52:49,349 - main_pipeline - DEBUG - Adding delay between steps
+2025-05-25 11:52:50,353 - main_pipeline - DEBUG - Retrieving and reranking due to conflict=False or reset=True
+2025-05-25 11:52:55,590 - main_pipeline - DEBUG - Reranking with voyage_rerank
+2025-05-25 11:53:08,841 - main_pipeline - DEBUG - Reranked to 50 items
+2025-05-25 11:53:08,845 - main_pipeline - DEBUG - No special filtering applied
+2025-05-25 11:53:08,849 - main_pipeline - DEBUG - Extracting tags from current text: 'modern painting, Philips LED lighting, minimalist fireplace, wooden floor, white door'
+2025-05-25 11:53:11,273 - main_pipeline - DEBUG - Extracted tags: ['modern', 'painting', 'Philips', 'LED lighting', 'minimalist', 'fireplace', 'wooden', 'floor', 'white', 'door']
+2025-05-25 11:53:11,281 - main_pipeline - DEBUG - Pipeline completed. Returning 50 items
+2025-05-25 11:53:11,301 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:53:11] "POST /api/search HTTP/1.1" 200 -
+2025-05-25 11:53:30,614 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:53:30] "POST /api/view-product HTTP/1.1" 200 -
+2025-05-25 11:53:31,388 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:53:31] "POST /api/view-product HTTP/1.1" 200 -
+2025-05-25 11:53:44,337 - main_pipeline - DEBUG - Starting main_pipeline with: modification_text='give me more decor', reset=False, image_path=C:\Users\monar\AppData\Local\Temp\appain_uploads\img3.jpg
+2025-05-25 11:53:44,338 - main_pipeline - DEBUG - Initial state: current_text='modern painting, Philips LED lighting, minimalist fireplace, wooden floor, white door', back_bone='painting, lighting, fireplace, floor, door'
+2025-05-25 11:53:45,030 - main_pipeline - DEBUG - Modifying query based on image: C:\Users\monar\AppData\Local\Temp\appain_uploads\img3.jpg
+2025-05-25 11:53:45,031 - main_pipeline - DEBUG - Modified query: 'give me more decor'
+2025-05-25 11:53:45,032 - main_pipeline - DEBUG - Adding delay between steps
+2025-05-25 11:53:46,034 - main_pipeline - DEBUG - Splitting query: 'give me more decor'
+2025-05-25 11:53:47,047 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-25 11:53:47,051 - main_pipeline - DEBUG - Query dict after splitting: {'general': 'Decor', 'special': ''}
+2025-05-25 11:53:47,053 - main_pipeline - DEBUG - Adding delay between steps
+2025-05-25 11:53:48,054 - main_pipeline - DEBUG - Updating current_text with general query: 'Decor'
+2025-05-25 11:53:48,934 - main_pipeline - DEBUG - Text updated: 'modern painting, Philips LED lighting, minimalist fireplace, wooden floor, white door' -> 'modern painting, Philips LED lighting, minimalist fireplace, wooden floor, white door, Decor'
+2025-05-25 11:53:48,934 - main_pipeline - DEBUG - Adding delay between steps
+2025-05-25 11:53:49,938 - main_pipeline - DEBUG - Checking for conflicts between current text and modification
+2025-05-25 11:53:50,336 - httpx - INFO - HTTP Request: POST https://api.mistral.ai/v1/chat/completions "HTTP/1.1 200 OK"
+2025-05-25 11:53:50,339 - main_pipeline - DEBUG - Conflict detected: False
+2025-05-25 11:53:50,339 - main_pipeline - DEBUG - Adding delay between steps
+2025-05-25 11:53:51,097 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:53:51] "POST /api/view-product HTTP/1.1" 200 -
+2025-05-25 11:53:51,340 - main_pipeline - DEBUG - No conflict/reset - using rerank_only path
+2025-05-25 11:53:53,466 - main_pipeline - DEBUG - No special filtering needed
+2025-05-25 11:53:53,469 - main_pipeline - DEBUG - Extracting tags from current text: 'modern painting, Philips LED lighting, minimalist fireplace, wooden floor, white door, Decor'
+2025-05-25 11:53:54,827 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:53:54] "POST /api/view-product HTTP/1.1" 200 -
+2025-05-25 11:53:55,871 - main_pipeline - DEBUG - Extracted tags: ['modern', 'painting', 'Philips', 'LED lighting', 'minimalist', 'fireplace', 'wooden', 'floor', 'white', 'door', 'Decor']
+2025-05-25 11:53:55,874 - main_pipeline - DEBUG - Pipeline completed. Returning 50 items
+2025-05-25 11:53:55,892 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:53:55] "POST /api/search HTTP/1.1" 200 -
+2025-05-25 11:53:58,462 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:53:58] "POST /api/view-product HTTP/1.1" 200 -
+2025-05-25 11:54:04,677 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:54:04] "POST /api/checkout HTTP/1.1" 200 -
+2025-05-25 11:54:05,079 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:54:05] "GET /checkout/8dae3e5c-6620-4fd1-9e2f-1328193759a7 HTTP/1.1" 200 -
+2025-05-25 11:54:05,121 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:54:05] "[36mGET /static/css/style.css HTTP/1.1[0m" 304 -
+2025-05-25 11:54:05,301 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:54:05] "[33mGET /static/css/checkout.css HTTP/1.1[0m" 404 -
+2025-05-25 11:54:05,462 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:54:05] "[36mGET /static/css/ai-checkout.css HTTP/1.1[0m" 304 -
+2025-05-25 11:54:25,717 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:54:25] "[32mPOST /checkout/complete/8dae3e5c-6620-4fd1-9e2f-1328193759a7 HTTP/1.1[0m" 302 -
+2025-05-25 11:54:25,738 - werkzeug - INFO - 127.0.0.1 - - [25/May/2025 11:54:25] "GET /checkout/success/8dae3e5c-6620-4fd1-9e2f-1328193759a7 HTTP/1.1" 200 -

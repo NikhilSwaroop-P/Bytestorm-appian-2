@@ -819,6 +819,11 @@
                                 <div class="item-title">{{ product.title }}</div>
                                 <div style="font-size: 13px; color: var(--dark-gray); margin-bottom: 5px;">Quantity: 1</div>
                                 <div class="item-price">{{ product.price }}</div>
+                                <!-- Debug info -->
+                                <div style="font-size: 11px; color: #999; margin-top: 5px;">
+                                    Image URL: {{ product.image_url }}<br>
+                                    {% if product.image_path %}Image Path: {{ product.image_path }}{% endif %}
+                                </div>
                             </div>
                         </div>
                         
@@ -906,6 +911,25 @@
             // Billing address toggle
             const sameAddressCheckbox = document.getElementById('same_as_shipping');
             const billingAddressForm = document.getElementById('billing_address_form');
+            
+            // Initialize product image
+            const productImage = document.querySelector('.item-image');
+            if (productImage) {
+                console.log("Product image source:", productImage.src);
+                // Force a reload of the image to ensure it's displaying correctly
+                const originalSrc = productImage.src;
+                if (originalSrc && originalSrc !== 'https://via.placeholder.com/80') {
+                    // Add a timestamp parameter to force reload
+                    const timestamp = new Date().getTime();
+                    if (originalSrc.indexOf('?') === -1) {
+                        productImage.src = originalSrc + '?t=' + timestamp;
+                    } else {
+                        productImage.src = originalSrc + '&t=' + timestamp;
+                    }
+                    
+                    console.log("Updated image source:", productImage.src);
+                }
+            }
             
             sameAddressCheckbox.addEventListener('change', function() {
                 billingAddressForm.style.display = this.checked ? 'none' : 'block';
@@ -1270,13 +1294,243 @@
                         setTimeout(processNextField, 100);
                     }
                 } else {
-                    // All fields filled - complete the checkout
-                    completeCheckout();
+                    // After filling all fields, apply a coupon code
+                    applyCouponWithAnimation();
                 }
             }
             
             // Start processing fields after a short delay
             setTimeout(processNextField, 1000);
+            
+            // Function to apply a coupon code with animation
+            function applyCouponWithAnimation() {
+                statusContent.innerHTML += '<p>Checking for available coupons...</p>';
+                
+                // Calculate current subtotal to determine best coupon
+                const subtotalElement = document.getElementById('subtotal');
+                const subtotalText = subtotalElement.textContent;
+                const subtotalValue = parseFloat(subtotalText.replace(/[₹,]/g, '')) || 0;
+                
+                // Determine the best coupon based on the order amount
+                let couponToApply = '';
+                let expectedSavings = 0;
+                let savingsMessage = '';
+                
+                // Calculate potential savings from each coupon
+                const welcome10Savings = subtotalValue * 0.1; // 10% off
+                const save20Savings = subtotalValue >= 100 ? 20 : 0; // ₹20 off orders over ₹100
+                const freeShipSavings = 25; // Free shipping (₹25 value)
+                
+                // Find the coupon with the highest savings
+                if (welcome10Savings >= save20Savings && welcome10Savings >= freeShipSavings) {
+                    couponToApply = 'WELCOME10';
+                    expectedSavings = welcome10Savings;
+                    savingsMessage = `10% discount saving ₹${expectedSavings.toFixed(0)}`;
+                } else if (save20Savings >= welcome10Savings && save20Savings >= freeShipSavings) {
+                    couponToApply = 'SAVE20';
+                    expectedSavings = save20Savings;
+                    savingsMessage = `Flat ₹20 discount`;
+                } else {
+                    couponToApply = 'FREESHIP';
+                    expectedSavings = freeShipSavings;
+                    savingsMessage = `Free shipping saving ₹25`;
+                }
+                
+                // If no significant savings, default to WELCOME10
+                if (expectedSavings <= 0) {
+                    couponToApply = 'WELCOME10';
+                    savingsMessage = "10% discount";
+                }
+                
+                // Move cursor to the coupon code field
+                const promoCodeInput = document.getElementById('promo_code');
+                if (promoCodeInput) {
+                    // Scroll to the coupon section
+                    promoCodeInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    
+                    // Get position for cursor animation
+                    const rect = promoCodeInput.getBoundingClientRect();
+                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    
+                    // Move cursor to the element
+                    cursor.style.left = (rect.left + 10) + 'px';
+                    cursor.style.top = (rect.top + scrollTop + 10) + 'px';
+                    
+                    // Show the coupon list first to analyze available coupons
+                    const couponToggle = document.querySelector('[onclick="toggleCoupons()"]');
+                    if (couponToggle && document.getElementById('coupon-list').style.display === 'none') {
+                        // Get position for cursor
+                        const toggleRect = couponToggle.getBoundingClientRect();
+                        
+                        // Move cursor to toggle
+                        cursor.style.left = (toggleRect.left + toggleRect.width/2) + 'px';
+                        cursor.style.top = (toggleRect.top + scrollTop + toggleRect.height/2) + 'px';
+                        
+                        // Click animation
+                        setTimeout(() => {
+                            cursor.style.transform = 'scale(0.8)';
+                            setTimeout(() => {
+                                cursor.style.transform = 'scale(1)';
+                                
+                                // Expand the coupon list
+                                toggleCoupons();
+                                
+                                // Update status to show coupon analysis
+                                statusContent.innerHTML += '<p>Analyzing available coupons...</p>';
+                                
+                                // Highlight each coupon item as if evaluating them
+                                const couponItems = document.querySelectorAll('.coupon-item');
+                                let currentCoupon = 0;
+                                
+                                function evaluateNextCoupon() {
+                                    if (currentCoupon < couponItems.length) {
+                                        const item = couponItems[currentCoupon];
+                                        
+                                        // Get position for cursor
+                                        const itemRect = item.getBoundingClientRect();
+                                        
+                                        // Move cursor to coupon item
+                                        cursor.style.left = (itemRect.left + 10) + 'px';
+                                        cursor.style.top = (itemRect.top + scrollTop + itemRect.height/2) + 'px';
+                                        
+                                        // Highlight item
+                                        item.style.backgroundColor = 'rgba(74, 111, 165, 0.1)';
+                                        
+                                        // After a moment, move to next coupon
+                                        setTimeout(() => {
+                                            // Reset highlight
+                                            item.style.backgroundColor = '';
+                                            currentCoupon++;
+                                            evaluateNextCoupon();
+                                        }, 500);
+                                    } else {
+                                        // After evaluating all coupons, pick the best one
+                                        statusContent.innerHTML += `<p>Found best coupon: "${couponToApply}" - ${savingsMessage}</p>`;
+                                        
+                                        // Now move back to the input field to type the coupon
+                                        cursor.style.left = (rect.left + 10) + 'px';
+                                        cursor.style.top = (rect.top + scrollTop + 10) + 'px';
+                                        
+                                        // Highlight the field
+                                        promoCodeInput.style.backgroundColor = '#e6f7ff';
+                                        promoCodeInput.style.borderColor = '#1890ff';
+                                        promoCodeInput.style.boxShadow = '0 0 0 2px rgba(24, 144, 255, 0.2)';
+                                        
+                                        // Focus the field
+                                        promoCodeInput.focus();
+                                        
+                                        // Simulate typing the coupon code
+                                        simulateTypingWithCursor(promoCodeInput, couponToApply, cursor, () => {
+                                            // After typing, click the apply button
+                                            setTimeout(() => {
+                                                const applyButton = document.getElementById('apply_promo');
+                                                if (applyButton) {
+                                                    // Get position for cursor
+                                                    const btnRect = applyButton.getBoundingClientRect();
+                                                    
+                                                    // Move cursor to button
+                                                    cursor.style.left = (btnRect.left + btnRect.width/2) + 'px';
+                                                    cursor.style.top = (btnRect.top + scrollTop + btnRect.height/2) + 'px';
+                                                    
+                                                    // Click animation
+                                                    setTimeout(() => {
+                                                        cursor.style.transform = 'scale(0.8)';
+                                                        setTimeout(() => {
+                                                            cursor.style.transform = 'scale(1)';
+                                                            
+                                                            // Highlight button
+                                                            applyButton.style.backgroundColor = '#3d5d8a';
+                                                            
+                                                            // Actually apply the coupon
+                                                            applyCoupon(couponToApply);
+                                                            
+                                                            // Update status
+                                                            statusContent.innerHTML += `<p class="success">Applied coupon: "${couponToApply}" - discount added!</p>`;
+                                                            
+                                                            // Reset button style
+                                                            setTimeout(() => {
+                                                                applyButton.style.backgroundColor = '';
+                                                                
+                                                                // Continue to checkout
+                                                                setTimeout(completeCheckout, 1000);
+                                                            }, 500);
+                                                        }, 150);
+                                                    }, 500);
+                                                } else {
+                                                    // If button not found, proceed to checkout
+                                                    completeCheckout();
+                                                }
+                                            }, 500);
+                                        });
+                                    }
+                                }
+                                
+                                // Start evaluating coupons after a delay
+                                setTimeout(evaluateNextCoupon, 1000);
+                            }, 150);
+                        }, 500);
+                    } else {
+                        // If coupon list is already visible or toggle not found, proceed directly
+                        // Update status
+                        statusContent.innerHTML += `<p>Found best coupon: "${couponToApply}" - ${savingsMessage}</p>`;
+                        
+                        // Highlight the field
+                        promoCodeInput.style.backgroundColor = '#e6f7ff';
+                        promoCodeInput.style.borderColor = '#1890ff';
+                        promoCodeInput.style.boxShadow = '0 0 0 2px rgba(24, 144, 255, 0.2)';
+                        
+                        // Focus the field
+                        promoCodeInput.focus();
+                        
+                        // Simulate typing the coupon code
+                        simulateTypingWithCursor(promoCodeInput, couponToApply, cursor, () => {
+                            // After typing, click the apply button
+                            setTimeout(() => {
+                                const applyButton = document.getElementById('apply_promo');
+                                if (applyButton) {
+                                    // Get position for cursor
+                                    const btnRect = applyButton.getBoundingClientRect();
+                                    
+                                    // Move cursor to button
+                                    cursor.style.left = (btnRect.left + btnRect.width/2) + 'px';
+                                    cursor.style.top = (btnRect.top + scrollTop + btnRect.height/2) + 'px';
+                                    
+                                    // Click animation
+                                    setTimeout(() => {
+                                        cursor.style.transform = 'scale(0.8)';
+                                        setTimeout(() => {
+                                            cursor.style.transform = 'scale(1)';
+                                            
+                                            // Highlight button
+                                            applyButton.style.backgroundColor = '#3d5d8a';
+                                            
+                                            // Actually apply the coupon
+                                            applyCoupon(couponToApply);
+                                            
+                                            // Update status
+                                            statusContent.innerHTML += `<p class="success">Applied coupon: "${couponToApply}" - discount added!</p>`;
+                                            
+                                            // Reset button style
+                                            setTimeout(() => {
+                                                applyButton.style.backgroundColor = '';
+                                                
+                                                // Continue to checkout
+                                                setTimeout(completeCheckout, 1000);
+                                            }, 500);
+                                        }, 150);
+                                    }, 500);
+                                } else {
+                                    // If button not found, proceed to checkout
+                                    completeCheckout();
+                                }
+                            }, 500);
+                        });
+                    }
+                } else {
+                    // If promo field not found, proceed to checkout
+                    completeCheckout();
+                }
+            }
         }
         
         // Simulate typing with cursor movement
@@ -1361,32 +1615,61 @@
                                 <p>Redirecting to confirmation page...</p>
                             `;
                             
-                            // Redirect to success page
+                            // Actually submit the form
+                            const form = document.getElementById('checkout-form');
+                            form.submit();
+                            
+                            // Remove cursor after submission
                             setTimeout(() => {
-                                window.location.href = "{{ url_for('checkout_success', session_id=session_id) }}";
-                            }, 1500);
+                                if (cursor) cursor.remove();
+                            }, 1000);
                         }, 500);
                     }, 150);
                 }, 1000);
             } else {
-                // If submit button not found, just redirect
+                // If submit button not found, submit the form directly
                 statusContent.innerHTML += `<p class="success">Completing order...</p>`;
                 
-                // Redirect to success page
+                // Submit the form
+                const form = document.getElementById('checkout-form');
+                form.submit();
+                
+                // Remove cursor after submission
                 setTimeout(() => {
-                    window.location.href = "{{ url_for('checkout_success', session_id=session_id) }}";
-                }, 1500);
+                    if (cursor) cursor.remove();
+                }, 1000);
             }
             
-            // Remove cursor and reset button after redirection
+            // Reset button after submission
             setTimeout(() => {
-                if (cursor) cursor.remove();
                 if (aiButton) {
                     aiButton.disabled = false;
                     aiButton.innerHTML = '<i class="fas fa-robot"></i> Complete with AI Assistant';
                 }
             }, 3000);
         }
+        
+        // Ensure image is loaded correctly
+        document.addEventListener('DOMContentLoaded', function() {
+            const productImage = document.querySelector('.item-image');
+            console.log("Product image element:", productImage);
+            console.log("Product image source:", productImage.src);
+            
+            // Try to fix image URL if it's not loading correctly
+            productImage.addEventListener('error', function() {
+                console.log("Image failed to load, trying alternative source");
+                // Check if we have an image_path as backup
+                {% if product.image_path %}
+                if (this.src !== "{{ product.image_path }}") {
+                    console.log("Trying image_path as alternative");
+                    this.src = "{{ product.image_path }}";
+                    return;
+                }
+                {% endif %}
+                // Fallback to placeholder
+                this.src = 'https://via.placeholder.com/80';
+            });
+        });
     </script>
 </body>
 </html>

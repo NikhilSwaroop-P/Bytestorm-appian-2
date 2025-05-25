@@ -210,7 +210,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ product_id: product.id })
+                body: JSON.stringify({ 
+                    product_id: product.id,
+                    product_data: product  // Pass the complete product data to be stored in session
+                })
             });
             
             if (!response.ok) {
