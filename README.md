@@ -1,4 +1,5 @@
 # AI-Powered Product Discovery and Checkout Pipeline
+![pipeline_visualization](https://github.com/user-attachments/assets/eef8fac9-6cdc-44fb-aaf0-1d89e94528b8)
 
 ## Project Overview
 
