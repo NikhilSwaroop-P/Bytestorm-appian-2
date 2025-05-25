@@ -150,7 +150,7 @@ pip install -r requirements.txt
 ### 4. ▶️ Run the Application
 
 ```bash
-python run_frontend.py
+python app.py
 ```
 
 ### 5. 🌐 Access the UI
