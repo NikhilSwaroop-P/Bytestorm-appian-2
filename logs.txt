@@ -1,0 +1,72 @@
+view,USHA EI 3702 1000-Watt Dry Iron (Blue),white,Philips, dry iron, temperature control, non-stick soleplate,₹714,ratings:4.1,433
+view,Bajaj Majesty Travellesta 800 Watts Travel Friendly Steam Iron (White & Blue),white,Philips, dry iron, temperature control, non-stick soleplate,₹1,449,ratings:4,76
+view,Orpat OEI 187 1200-Watt Dry Iron (White and Blue),white,Philips, dry iron, temperature control, non-stick soleplate,₹710,ratings:4.1,20673
+view,Philips HI114 1000-Watt Dry Iron,white,Philips, dry iron, temperature control, non-stick soleplate,₹1,129,ratings:4.3,12871
+view,Philips Classic Dry Iron 750W Purple GC098,white,Philips, dry iron, temperature control, non-stick soleplate,₹695,ratings:4.2,236
+view,Lifelong 1100W LLDI09 Dry Iron,white,Philips, dry iron, temperature control, non-stick soleplate,₹439,ratings:3.9,534
+view,QUDDY Garment Steamer Ironing Glove, Portable Handheld Mini Steam Ironing Board, Waterproof Anti Steam Mitt with Finger Lo...,white,Philips, dry iron, temperature control, non-stick soleplate,₹299,ratings:4.9,19
+search,below 1000 watts,
+view,USHA EI 3702 1000-Watt Dry Iron (Blue),white,Philips, dry iron, temperature control, non-stick soleplate,₹714,ratings:4.1,433
+view,Orpat OEI 187 1200-Watt Dry Iron (White and Blue),white,Philips, dry iron, temperature control, non-stick soleplate,₹710,ratings:4.1,20673
+search,under 500 rupees,
+view,Havells Stealth 1000 watt Dry Iron With American Heritage Non Stick Sole Plate, Aerodynamic Design, Easy Grip Temperature ...,white,Philips, dry iron, temperature control, non-stick soleplate,₹975,ratings:4.1,178
+search,power specification optional,
+view,Bajaj Majesty DS100 1000 Watt Dry Iron with Spray (Blue/White),white,Philips, dry iron, 1000W, temperature control, non-stick soleplate,₹790,ratings:3.5,64
+search,not 1000 watts,
+search,power specification of 1000 is not needed,
+search,1000W is not needed,
+view,Bajaj Majesty DS100 1000 Watt Dry Iron with Spray (Blue/White),white,Philips, dry iron, 1000W, temperature control, non-stick soleplate,₹790,ratings:3.5,64
+view,wipro Vesta 1380W Cordless Steam Iron Quick heat up with 20gm/ min Steam Burst, Scratch resistant Ceramic soleplate ,Verti...,white,Philips, dry iron, 1000W, temperature control, non-stick soleplate,₹1,799,ratings:3.6,889
+view,Philips Steam Iron GC1011/01 with 1200 Watts power, linished soleplate, up to 15 g/min of steam,white,Philips, dry iron, 1000W, temperature control, non-stick soleplate,₹1,299,ratings:4.1,3148
+view,Candes 1000 W Plancha Heavy Weight Electric Dry Iron, 100% Non Stick Teflon Coating, White Blue (EI-1005WB1CC),white,Philips, dry iron, 1000W, temperature control, non-stick soleplate,₹769,ratings:4.2,5
+search,above 1000 rupees,
+view,USHA EI 3702 1000-Watt Dry Iron (Blue),white,Philips, dry iron, 1000W, temperature control, non-stick soleplate,₹714,ratings:4.1,433
+view,Chartbusters Dry Iron with Non-Stick Coated Soleplate (Multicolor) NP-0019,white,Philips, dry iron, 1000W, temperature control, non-stick soleplate,₹299,ratings:5,2
+view,Irkaja Magic Filter/Round Lint Filter Compatible with LG. Top Loading Fully Automatic Washing Machines,white,Philips, dry iron, 1000W, teal, fabric settings,₹219,ratings:4.1,525
+view,GaxQuly Travel Folding Handel Temperature Iron Portable Powerful Mini Electrical Steam Iron Press (Travel Folding Iron),white,Philips, dry iron, 1000W, teal, fabric settings,₹999,ratings:4.9,75
+view,Irkaja Magic Filter/Round Lint Filter Compatible with LG. Top Loading Fully Automatic Washing Machines,white,Philips, dry iron, 1000W, teal, fabric settings,₹219,ratings:4.1,525
+search,black color with greater than 1001 W and under 1000 rupees,
+view,Pigeon Ivory 1000W Dry Iron,white,Philips, dry iron, temperature control, non-stick soleplate,₹489,ratings:,
+view,Bajaj Popular Light Weight 1000W Dry Iron with Advance Soleplate and Anti-Bacterial German Coating Technology, White,white,Philips, dry iron, temperature control, non-stick soleplate,₹654,ratings:4.2,2571
+view,Usha EI 2802 1000 W Ultra Light Weight Dry Iron with Non-Stick Soleplate (White),white,Philips, dry iron, temperature control, non-stick soleplate,₹570,ratings:3.9,3671
+search,philips brand iron,
+view,LipiWorld® RM-1180M -1(N2QAYB000823 N2QAYB000486 N2QAYB000820 N2QAYB000487 N2QAYB000752 N2QAYB000572) Remote Compatible wi...,white,Philips, dry iron, temperature control, non-stick soleplate,₹319,ratings:4.3,246
+view,Wipro Automatic Electric Deluxe Dry Iron- 1000W,white,Philips, dry iron, temperature control, non-stick soleplate,₹699,ratings:4.1,1181
+view,aRIC Barbeque Jali Roti Roast Grill Stainless Steel Roster Roti Papad Chapati Toast brinjal Chicken paneer tandoor (bainga...,white,Philips, dry iron, temperature control, non-stick soleplate,₹159,ratings:4.3,5
+view,Wipro Smartlife Deluxe Dry Iron - 1000W,white,Philips, dry iron, temperature control, non-stick soleplate,₹649,ratings:4.2,290
+view,Crompton InstaGlide 1000-Watts Dry Iron with American Heritage Coating, Pack of 1 Iron,white,Philips, dry iron, temperature control, non-stick soleplate,₹807,ratings:4.1,7959
+view,Irkaja Magic Filter/Round Lint Filter Compatible with LG. Top Loading Fully Automatic Washing Machines,white,Philips, dry iron, temperature control, non-stick soleplate,₹219,ratings:4.1,525
+view,Philips Steam Iron GC1011/01 with 1200 Watts power, linished soleplate, up to 15 g/min of steam,white,Philips, dry iron, temperature control, non-stick soleplate,₹1,299,ratings:4.1,3148
+search,give under price 1000,
+view,Havells Jio 1000-Watt Dry Iron (Blue),white,Philips, dry iron, temperature control, non-stick soleplate,₹1,150,ratings:4.1,860
+view,Rico Heavy Weight Japanese Technology 1000 W Automatic Dry Iron (White),white,Philips, dry iron, temperature control, non-stick soleplate,₹1,490,ratings:4.1,4314
+view,Philips Hi113 1000-Watt Plastic Body Ptfe Coating Dry Iron, Pack of 1,white,Philips, dry iron, temperature control, non-stick soleplate,₹1,140,ratings:4.3,7348
+view,Inalsa Vacuum Cleaner for Home 1400W Bagless - Aristo | HEPA Filter, Powerful Suction & High Energy Efficiency| 1.5 L Dust...,white,Philips, dry iron, temperature control, non-stick soleplate,₹3,801,ratings:3.6,1375
+view,Orpat OEI 187 1200-Watt Dry Iron (White and Blue),white,Philips, dry iron, temperature control, non-stick soleplate,₹710,ratings:4.1,20673
+view,Singer Workmate Full Shuttle Umbrella Sewing Machine For Tailoring Purpose, Silver,white,Philips, dry iron, temperature control, non-stick soleplate,₹7,124,ratings:4,1
+view,Prestige PKLSS 1.7 Electric Kettle 1.7L,white,Philips, dry iron, temperature control, non-stick soleplate,₹1,286,ratings:3.6,22
+view,Best Silver Star 1000W 220V Industrial Electric Steam Iron ES-3 with 4.0 L.Water Tank with Steam-Press Teflon Shoes,white,Philips, dry iron, temperature control, non-stick soleplate,₹3,589,ratings:3.5,9
+view,Philips Easy Speed Steam Iron With Ceramic Soleplate (Blue_Free Size),white,Philips, dry iron, temperature control, non-stick soleplate,₹1,780,ratings:3.9,1406
+search,give philips brand power greater than 1050,
+view,Wipro Smartlife Deluxe Dry Iron - 1000W,white,Bosch, Philips, dry iron, temperature control, non-stick soleplate,₹649,ratings:4.2,290
+view,GaxQuly Travel Folding Handel Temperature Iron Portable Powerful Mini Electrical Steam Iron Press (Travel Folding Iron),white,Bosch, Philips, dry iron, temperature control, non-stick soleplate,₹999,ratings:4.9,75
+purchased,Pixel 7 Pro,Obsidian Black,128GB Storage,₹899,ratings:4.6,3000
+view,Samsung Galaxy Buds2 Pro,Graphite,ANC,₹229,ratings:4.5,1500
+search,smartwatch with long battery life,GPS
+purchased,Garmin Fenix 7,Silver,Solar Charging,₹699,ratings:4.8,4500
+view,Apple Watch Series 8,Midnight,Cellular,₹399,ratings:4.7,2500
+search,lightweight laptop for travel,13-inch
+purchased,MacBook Air M2,Space Gray,16GB RAM,₹1199,ratings:4.9,5000
+view,Dell XPS 13,Platinum Silver,512GB SSD,₹999,ratings:4.6,1200
+search,4k monitor under ₹300,27-inch
+purchased,LG 27UL500-W,White,HDR10,₹279,ratings:4.4,1800
+view,Samsung Refrigerator,Silver,Double Door,300L,₹35000,ratings:4.5,1800
+purchased,Bosch Washing Machine,White,Front Load,7kg,₹28000,ratings:4.7,2200
+search,microwave oven,convection,LG
+view,Philips Air Fryer,Black,Digital,₹8500,ratings:4.6,1500
+purchased,Havells Mixer Grinder,Blue,750W,3 Jars,₹3200,ratings:4.3,900
+search,water purifier,RO+UV,Kent
+view,Bajaj Geyser,White,15L Storage,₹7000,ratings:4.2,1100
+purchased,Voltas Air Conditioner,White,1.5 Ton Split,Inverter,₹45000,ratings:4.6,2500
+view,IFB Microwave Oven,Black,Convection,25L,₹12000,ratings:4.4,1300
+search,vacuum cleaner,cordless,Dyson
