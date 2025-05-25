@@ -4,7 +4,7 @@
 ## Project Overview
 
 This project implements an advanced AI-driven product discovery and checkout system that enables users to search for products using both text queries and images. The pipeline integrates computer vision, natural language processing, and search techniques to create a seamless shopping experience from initial product discovery to final checkout.
-
+Tested on 14000 products database
 ## Core Architecture
 
 The system is built around a modular pipeline architecture with specialized blocks handling different aspects of the search and checkout process:
