@@ -1,6 +1,15 @@
 # AI-Powered Product Discovery and Checkout Pipeline
 ![pipeline_visualization](https://github.com/user-attachments/assets/eef8fac9-6cdc-44fb-aaf0-1d89e94528b8)
 
+> Additional pipeline diagrams are available in the [pipelines folder](https://github.com/NikhilSwaroop-P/Bytestorm-appian-2/tree/main/pipelines):
+> - [Query Processing Block](https://github.com/NikhilSwaroop-P/Bytestorm-appian-2/blob/main/pipelines/block_query_processing.png)
+> - [Image Processing Block](https://github.com/NikhilSwaroop-P/Bytestorm-appian-2/blob/main/pipelines/block_image_processing.png)
+> - [Retrieval Block](https://github.com/NikhilSwaroop-P/Bytestorm-appian-2/blob/main/pipelines/block_retrieval.png)
+> - [Filtering Block](https://github.com/NikhilSwaroop-P/Bytestorm-appian-2/blob/main/pipelines/block_filtering.png)
+> - [UI Components](https://github.com/NikhilSwaroop-P/Bytestorm-appian-2/blob/main/pipelines/pipeline_ui_components.png)
+> - [AI Checkout Flow](https://github.com/NikhilSwaroop-P/Bytestorm-appian-2/blob/main/pipelines/pipeline_ai_checkout.png)
+> - [Complete Pipeline Visualization](https://github.com/NikhilSwaroop-P/Bytestorm-appian-2/blob/main/pipelines/pipeline_visualization.png)
+
 ## Project Overview
 
 This project implements an advanced AI-driven product discovery and checkout system that enables users to search for products using both text queries and images. The pipeline integrates computer vision, natural language processing, and search techniques to create a seamless shopping experience from initial product discovery to final checkout.
@@ -112,9 +121,9 @@ This architecture provides a complete end-to-end solution for AI-driven shopping
 ### 1. 📥 Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/your-repo-name.git
-cd your-repo-name
-````
+git clone https://github.com/NikhilSwaroop-P/Bytestorm-appian-2.git
+cd Bytestorm-appian-2
+```
 
 ### 2. 🔑 Set Your API Key
 
@@ -149,9 +158,5 @@ python run_frontend.py
 Open your browser and go to:
 
 ```
-http://localhost:8000
-```
-
-```
-```
-
+http://localhost:5000
+``` 
