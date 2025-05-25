@@ -107,8 +107,6 @@ The pipeline processes inputs through a series of specialized modules that analy
 
 This architecture provides a complete end-to-end solution for AI-driven shopping experiences, from initial product search to final purchase confirmation. 
 
-````markdown
-
 ## 🚀 How to Use
 
 ### 1. 📥 Clone the Repository
