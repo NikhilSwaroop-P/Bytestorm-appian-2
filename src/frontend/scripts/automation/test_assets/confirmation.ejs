@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .confirmation-header {
+            text-align: center;
+            padding: 30px 0;
+        }
+        .confirmation-header h1 {
+            margin: 0 0 10px 0;
+            color: #4a4a4a;
+        }
+        .confirmation-header p {
+            margin: 0;
+            color: #666;
+            font-size: 18px;
+        }
+        .order-details {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .order-number {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #4a4a4a;
+        }
+        .order-date {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+        .detail-label {
+            font-weight: 500;
+            color: #666;
+        }
+        .detail-value {
+            font-weight: 600;
+            color: #333;
+        }
+        .success-icon {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .success-icon svg {
+            width: 80px;
+            height: 80px;
+            fill: #4caf50;
+        }
+        .next-steps {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .next-steps h2 {
+            margin-top: 0;
+            color: #4a4a4a;
+        }
+        .steps-list {
+            padding-left: 20px;
+        }
+        .steps-list li {
+            margin-bottom: 10px;
+            color: #555;
+        }
+        .btn {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+            font-weight: 500;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+        .buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="confirmation-header">
+            <div class="success-icon">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+            </div>
+            <h1>Order Confirmed!</h1>
+            <p>Thank you for your purchase</p>
+        </div>
+        
+        <div class="order-details">
+            <div class="order-number">Order #<%= order.number %></div>
+            <div class="order-date">Placed on <%= order.date %></div>
+            
+            <div class="detail-row">
+                <div class="detail-label">Order Status:</div>
+                <div class="detail-value">Processing</div>
+            </div>
+            <div class="detail-row">
+                <div class="detail-label">Payment Method:</div>
+                <div class="detail-value">Credit Card (●●●● ●●●● ●●●● 1111)</div>
+            </div>
+            <div class="detail-row">
+                <div class="detail-label">Shipping Method:</div>
+                <div class="detail-value">Standard Shipping</div>
+            </div>
+            <div class="detail-row">
+                <div class="detail-label">Order Total:</div>
+                <div class="detail-value"><%= order.total %></div>
+            </div>
+            <div class="detail-row">
+                <div class="detail-label">Estimated Delivery:</div>
+                <div class="detail-value">5-7 business days</div>
+            </div>
+        </div>
+        
+        <div class="next-steps">
+            <h2>What's Next?</h2>
+            <ul class="steps-list">
+                <li>A confirmation email has been sent to your email address.</li>
+                <li>You will receive another email once your order has shipped.</li>
+                <li>You can track your order status by logging into your account.</li>
+                <li>If you have any questions, please contact our customer support.</li>
+            </ul>
+        </div>
+        
+        <div class="buttons">
+            <a href="/" class="btn">Continue Shopping</a>
+            <a href="#" class="btn btn-secondary">View Order Status</a>
+        </div>
+    </div>
+</body>
+</html> 

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Recommendation Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header class="amazon-header">
+        <div class="header-logo">
+            <h1>ShopSmart</h1>
+        </div>
+        <div class="header-nav-right">
+            <div class="nav-item">
+                <span class="nav-line-1">Hello, {% if current_user.is_authenticated %}{{ current_user.username }}{% else %}Guest{% endif %}</span>
+                <span class="nav-line-2">
+                    {% if current_user.is_authenticated %}
+                        <a href="{{ url_for('profile') }}">Your Account</a>
+                    {% else %}
+                        <a href="{{ url_for('login') }}">Account & Lists</a>
+                    {% endif %}
+                </span>
+            </div>
+            <div class="theme-toggle">
+                <button id="themeToggle" aria-label="Toggle dark/light mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+            <div class="nav-auth">
+                {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('logout') }}" class="nav-button">Sign Out</a>
+                {% else %}
+                    <a href="{{ url_for('login') }}" class="nav-button">Sign In</a>
+                    <a href="{{ url_for('register') }}" class="nav-button register-button">Register</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <!-- Left column: Product display area -->
+        <div class="products-container" id="productsContainer">
+            <div class="empty-state">
+                <i class="fa-solid fa-store fa-3x"></i>
+                <h3>No products selected</h3>
+                <p>Use the chat to search for products by image or text</p>
+            </div>
+        </div><!--
+        --><div class="chatbot-container" id="chatbotContainer">
+            <div class="chatbot-collapse-btn" id="collapseBtn">
+                <i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="chatbot-header">
+                <h2>Product Finder</h2>
+                <p><strong>Image required</strong> - Upload an image to search for products</p>
+            </div>
+
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot-message">
+                    <div class="message-content">
+                        Hello! I need an <strong>image</strong> to help you find products. Please upload an image to start, then you can refine your search with text.
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-input">
+                <form id="chatForm">
+                    <div class="input-area">
+                        <button type="button" class="upload-btn" id="uploadBtn">
+                            <i class="fas fa-image"></i>
+                        </button>
+                        <input type="file" id="imageUpload" accept="image/*" hidden>
+                        <input type="text" id="userInput" placeholder="Type your message..." autocomplete="off">
+                        <button type="submit" class="send-btn">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </form>
+                <div id="imagePreview" class="image-preview hidden">
+                    <img src="" id="previewImg">
+                    <button type="button" id="removeImage" class="remove-btn">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Help box -->
+        <div class="help-box" id="helpBox">
+            <div class="help-box-header">
+                <h3>How to Use</h3>
+                <button id="closeHelp" class="close-help">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="help-box-content">
+                <div class="help-item">
+                    <i class="fas fa-image"></i>
+                    <p><strong>1.</strong> Upload an image of a product you're interested in</p>
+                </div>
+                <div class="help-item">
+                    <i class="fas fa-keyboard"></i>
+                    <p><strong>2.</strong> Type additional details to refine your search</p>
+                </div>
+                <div class="help-item">
+                    <i class="fas fa-chevron-right"></i>
+                    <p><strong>3.</strong> Collapse the chat panel to see more products</p>
+                </div>
+                <div class="help-item">
+                    <i class="fas fa-moon"></i>
+                    <p><strong>4.</strong> Toggle between light and dark theme</p>
+                </div>
+                <div class="help-item">
+                    <i class="fas fa-shopping-cart"></i>
+                    <p><strong>5.</strong> Click "Buy Now" to purchase a product</p>
+                </div>
+                <div class="help-item">
+                    <i class="fas fa-robot"></i>
+                    <p><strong>6.</strong> AI Checkout Assistant will automatically complete your purchase</p>
+                </div>
+            </div>
+        </div>
+        
+        <button id="helpButton" class="help-button">
+            <i class="fas fa-question"></i>
+        </button>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ai-checkout.js') }}"></script>
+</body>
+</html> 

@@ -1,0 +1,18 @@
+[2025-05-24 09:15:32] INFO: Checkout automation system initialized
+[2025-05-24 09:15:32] INFO: Loaded Gemini API client successfully
+[2025-05-24 09:15:32] INFO: Puppeteer browser initialized with headless=false
+[2025-05-24 09:15:32] INFO: Screenshots will be saved to /screenshots directory
+[2025-05-24 09:15:32] INFO: Form analysis model loaded: gemini-pro
+[2025-05-24 09:15:32] INFO: Customer profiles loaded: default, work
+[2025-05-24 09:18:45] INFO: Starting checkout automation for Test Product (₹499)
+[2025-05-24 09:18:46] INFO: Navigating to checkout page: http://localhost:3000/checkout
+[2025-05-24 09:18:48] INFO: Page loaded, analyzing form structure with Gemini AI
+[2025-05-24 09:18:52] INFO: Form analysis complete, found 15 fields to fill
+[2025-05-24 09:18:53] INFO: Filling customer information fields
+[2025-05-24 09:19:01] INFO: Filling payment information fields
+[2025-05-24 09:19:05] INFO: All fields filled successfully
+[2025-05-24 09:19:05] INFO: Submitting form
+[2025-05-24 09:19:08] INFO: Order submitted successfully
+[2025-05-24 09:19:09] INFO: Screenshot saved: checkout-confirmation.png
+[2025-05-24 09:19:09] INFO: Order number extracted: ORD-X7B2C9F3
+[2025-05-24 09:19:10] INFO: Checkout process completed successfully

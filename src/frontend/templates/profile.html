@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile | Product Recommendation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #f7fafc;
+            padding: 20px;
+        }
+        .profile-wrapper {
+            max-width: 600px;
+            margin: 40px auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .profile-header {
+            background-color: #4a6fa5;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .profile-content {
+            padding: 30px;
+        }
+        .profile-section {
+            margin-bottom: 30px;
+        }
+        .profile-section h3 {
+            margin-top: 0;
+            color: #374151;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        .field {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #374151;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .save-button {
+            background-color: #4a6fa5;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 12px 16px;
+            font-size: 16px;
+            font-weight: 500;
+            width: 100%;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .save-button:hover {
+            background-color: #3d5d8a;
+        }
+        .flash-messages {
+            margin-bottom: 20px;
+        }
+        .flash-message {
+            padding: 10px;
+            background-color: #d1fae5;
+            border-radius: 4px;
+            color: #065f46;
+            margin-bottom: 10px;
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+        }
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+        .card-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-wrapper">
+        <div class="profile-header">
+            <h2>My Profile</h2>
+            <div class="nav-links">
+                <a href="{{ url_for('index') }}">Home</a>
+                <a href="{{ url_for('logout') }}">Log Out</a>
+            </div>
+        </div>
+        <div class="profile-content">
+            {% if get_flashed_messages() %}
+            <div class="flash-messages">
+                {% for message in get_flashed_messages() %}
+                <div class="flash-message">{{ message }}</div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            
+            <div class="profile-section">
+                <h3>Account Information</h3>
+                <p><strong>Username:</strong> {{ current_user.username }}</p>
+                <p><strong>Email:</strong> {{ current_user.email }}</p>
+                <p><strong>Account Created:</strong> {{ current_user.created_at.strftime('%Y-%m-%d') }}</p>
+            </div>
+            
+            <div class="profile-section">
+                <h3>Payment Methods</h3>
+                <form method="POST" action="{{ url_for('profile') }}">
+                    <div class="field">
+                        <label for="card_holder">Name on Card</label>
+                        <input type="text" id="card_holder" name="card_holder" 
+                               placeholder="Card holder name"
+                               value="{{ current_user.card_holder or '' }}">
+                    </div>
+                    
+                    <div class="card-grid">
+                        <div class="field">
+                            <label for="card_number">Card Number</label>
+                            <input type="text" id="card_number" name="card_number" 
+                                   placeholder="1234 5678 9012 3456"
+                                   value="{{ current_user.card_number or '' }}">
+                        </div>
+                        
+                        <div class="field">
+                            <label for="card_expiry">Expiration Date</label>
+                            <input type="text" id="card_expiry" name="card_expiry" 
+                                   placeholder="MM/YY"
+                                   value="{{ current_user.card_expiry or '' }}">
+                        </div>
+                    </div>
+                    
+                    <div class="field">
+                        <label for="card_cvv">CVV Code</label>
+                        <input type="text" id="card_cvv" name="card_cvv" 
+                               placeholder="123"
+                               value="{{ current_user.card_cvv or '' }}">
+                        <small style="color: #6b7280;">For demonstration purposes only. Never store CVV in production.</small>
+                    </div>
+                    
+                    <button type="submit" class="save-button">Save Payment Information</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

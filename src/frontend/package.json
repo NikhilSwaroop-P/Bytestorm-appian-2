@@ -1,0 +1,13 @@
+{
+  "name": "product-finder-frontend",
+  "version": "1.0.0",
+  "description": "Product Finder Web Interface",
+  "main": "run.py",
+  "scripts": {
+    "start": "python run.py",
+    "demo": "node scripts/demo-automation.js"
+  },
+  "dependencies": {
+    "puppeteer": "^20.1.0"
+  }
+} 

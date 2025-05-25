@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | ShopSmart</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/checkout.css') }}">
+    {% if ai_checkout_enabled %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ai-checkout.css') }}">
+    {% endif %}
+    <style>
+        :root {
+            --primary-color: #4a6fa5;
+            --accent-color: #e63946;
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+            --light-gray: #f8f9fa;
+            --mid-gray: #e9ecef;
+            --dark-gray: #6c757d;
+            --border-color: #dee2e6;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Roboto', sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .checkout-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .checkout-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .checkout-logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .checkout-steps {
+            display: flex;
+            margin-bottom: 30px;
+        }
+        
+        .step {
+            flex: 1;
+            text-align: center;
+            padding: 15px 0;
+            position: relative;
+        }
+        
+        .step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--border-color);
+            z-index: 1;
+        }
+        
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: var(--light-gray);
+            border: 2px solid var(--border-color);
+            color: var(--dark-gray);
+            font-weight: 500;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .step.active .step-number {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+        
+        .step.completed .step-number {
+            background-color: var(--success-color);
+            border-color: var(--success-color);
+            color: white;
+        }
+        
+        .step-title {
+            font-size: 14px;
+            color: var(--dark-gray);
+        }
+        
+        .step.active .step-title {
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+        
+        .checkout-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .checkout-main {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .checkout-sidebar {
+            width: 350px;
+            min-width: 300px;
+        }
+        
+        .checkout-panel {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        
+        .panel-header {
+            padding: 15px;
+            background-color: var(--light-gray);
+            border-bottom: 1px solid var(--border-color);
+            font-weight: 500;
+            font-size: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .panel-content {
+            padding: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border-color 0.15s ease-in-out;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-color);
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(74, 111, 165, 0.25);
+        }
+        
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+            min-width: 120px;
+        }
+        
+        .btn {
+            display: inline-block;
+            font-weight: 500;
+            color: #fff;
+            text-align: center;
+            vertical-align: middle;
+            cursor: pointer;
+            padding: 10px 15px;
+            font-size: 16px;
+            line-height: 1.5;
+            border-radius: 4px;
+            border: 1px solid transparent;
+            transition: all 0.15s ease-in-out;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: #3d5d8a;
+            border-color: #3d5d8a;
+        }
+        
+        .btn-success {
+            background-color: var(--success-color);
+            border-color: var(--success-color);
+        }
+        
+        .btn-success:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+        
+        .btn-block {
+            display: block;
+            width: 100%;
+        }
+        
+        .order-summary-item {
+            display: flex;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .item-image {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin-right: 15px;
+            background-color: var(--light-gray);
+            border: 1px solid var(--border-color);
+        }
+        
+        .item-details {
+            flex: 1;
+        }
+        
+        .item-title {
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+        
+        .item-price {
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .order-totals {
+            margin-top: 15px;
+        }
+        
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            font-size: 14px;
+        }
+        
+        .total-row.final {
+            font-weight: 700;
+            font-size: 18px;
+            border-top: 2px solid var(--border-color);
+            margin-top: 10px;
+            padding-top: 15px;
+        }
+        
+        .shipping-options {
+            margin-top: 20px;
+        }
+        
+        .shipping-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.15s ease-in-out;
+        }
+        
+        .shipping-option:hover {
+            border-color: var(--primary-color);
+            background-color: rgba(74, 111, 165, 0.05);
+        }
+        
+        .shipping-option.selected {
+            border-color: var(--primary-color);
+            background-color: rgba(74, 111, 165, 0.1);
+        }
+        
+        .shipping-option input {
+            margin-right: 10px;
+        }
+        
+        .shipping-details {
+            flex: 1;
+        }
+        
+        .shipping-name {
+            font-weight: 500;
+        }
+        
+        .shipping-description {
+            font-size: 12px;
+            color: var(--dark-gray);
+        }
+        
+        .shipping-price {
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-left: 10px;
+        }
+        
+        .promo-code {
+            display: flex;
+            margin-top: 20px;
+        }
+        
+        .promo-code input {
+            flex: 1;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        
+        .promo-code button {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+        
+        .card-icons {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+        
+        .card-icon {
+            width: 40px;
+            height: 25px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 3px;
+            background-color: white;
+        }
+        
+        .security-badge {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background-color: var(--light-gray);
+            border-radius: 4px;
+            margin-top: 20px;
+            font-size: 13px;
+        }
+        
+        .security-badge i {
+            color: var(--success-color);
+            margin-right: 10px;
+            font-size: 18px;
+        }
+        
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .tab {
+            padding: 10px 15px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.15s ease-in-out;
+        }
+        
+        .tab.active {
+            border-bottom-color: var(--primary-color);
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 20px 0;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .address-card {
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 15px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.15s ease-in-out;
+        }
+        
+        .address-card:hover {
+            border-color: var(--primary-color);
+        }
+        
+        .address-card.selected {
+            border-color: var(--primary-color);
+            background-color: rgba(74, 111, 165, 0.05);
+        }
+        
+        .address-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .address-title {
+            font-weight: 500;
+        }
+        
+        .address-actions a {
+            color: var(--primary-color);
+            text-decoration: none;
+            margin-left: 10px;
+            font-size: 13px;
+        }
+        
+        .address-content {
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .checkbox-group input {
+            margin-right: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .checkout-content {
+                flex-direction: column;
+            }
+            
+            .checkout-sidebar {
+                width: 100%;
+                order: -1;
+            }
+            
+            .step-title {
+                display: none;
+            }
+        }
+        
+        /* AI Checkout Button Style */
+        .ai-checkout-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            border: none;
+            color: white;
+            font-weight: 500;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        .ai-checkout-btn:hover {
+            background: linear-gradient(135deg, #5d7bea, #9666d2);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .ai-checkout-btn:disabled {
+            background: #c5c5c5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .ai-checkout-btn i {
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="checkout-container">
+        <div class="checkout-header">
+            <div class="checkout-logo">
+                <a href="{{ url_for('index') }}" style="text-decoration: none; color: inherit;">
+                    ShopSmart
+                </a>
+            </div>
+            <div class="checkout-actions">
+                {% if current_user.is_authenticated %}
+                <a href="{{ url_for('profile') }}" style="margin-right: 15px; color: var(--primary-color); text-decoration: none;">
+                    <i class="fas fa-user"></i> {{ current_user.username }}
+                </a>
+                {% else %}
+                <a href="{{ url_for('login') }}" style="margin-right: 15px; color: var(--primary-color); text-decoration: none;">
+                    <i class="fas fa-sign-in-alt"></i> Sign In
+                </a>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="checkout-steps">
+            <div class="step completed">
+                <div class="step-number"><i class="fas fa-check"></i></div>
+                <div class="step-title">Cart</div>
+            </div>
+            <div class="step active">
+                <div class="step-number">2</div>
+                <div class="step-title">Checkout</div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-title">Confirmation</div>
+            </div>
+        </div>
+        
+        <div class="checkout-content">
+            <div class="checkout-main">
+                <form id="checkout-form" action="/checkout/complete/{{ session_id }}" method="POST">
+                    <!-- AI Checkout Button - Moved to top -->
+                    <div style="margin-bottom: 20px;">
+                        <button type="button" id="aiCheckoutBtn" class="ai-checkout-btn" style="display: block;">
+                            <i class="fas fa-robot"></i> Complete with AI Assistant
+                        </button>
+                        
+                        <!-- Debug info -->
+                        <div style="background: #f8f9fa; padding: 5px; margin-top: 10px; border: 1px solid #ccc; display: none;">
+                            AI Checkout Enabled: {{ ai_checkout_enabled|default('Not set', true) }}
+                        </div>
+                    </div>
+                    
+                    <!-- Shipping Information -->
+                    <div class="checkout-panel">
+                        <div class="panel-header">
+                            <span>1. Shipping Information</span>
+                            {% if current_user.is_authenticated %}
+                            <span style="font-size: 13px; color: var(--dark-gray);">
+                                <i class="fas fa-user-check"></i> Logged in as {{ current_user.username }}
+                            </span>
+                            {% endif %}
+                        </div>
+                        <div class="panel-content">
+                            {% if not current_user.is_authenticated %}
+                            <div class="form-group">
+                                <label for="email" class="form-label">Email Address</label>
+                                <input type="email" id="email" name="email" class="form-control" required>
+                                <div style="margin-top: 5px; font-size: 13px;">
+                                    <a href="{{ url_for('login') }}" style="color: var(--primary-color); text-decoration: none;">
+                                        Already have an account? Sign in
+                                    </a>
+                                </div>
+                            </div>
+                            {% endif %}
+                            
+                            {% if shipping_address %}
+                            <!-- Saved addresses -->
+                            <div class="address-card selected">
+                                <div class="address-header">
+                                    <div class="address-title">Default Address</div>
+                                    <div class="address-actions">
+                                        <a href="#"><i class="fas fa-pencil-alt"></i> Edit</a>
+                                    </div>
+                                </div>
+                                <div class="address-content">
+                                    <p>
+                                        {{ shipping_address.name }}<br>
+                                        {{ shipping_address.street }}<br>
+                                        {{ shipping_address.city }}, {{ shipping_address.state }} {{ shipping_address.zip }}<br>
+                                        {{ shipping_address.country }}
+                                    </p>
+                                </div>
+                                <input type="hidden" name="shipping_name" value="{{ shipping_address.name }}">
+                                <input type="hidden" name="shipping_street" value="{{ shipping_address.street }}">
+                                <input type="hidden" name="shipping_city" value="{{ shipping_address.city }}">
+                                <input type="hidden" name="shipping_state" value="{{ shipping_address.state }}">
+                                <input type="hidden" name="shipping_zip" value="{{ shipping_address.zip }}">
+                                <input type="hidden" name="shipping_country" value="{{ shipping_address.country }}">
+                            </div>
+                            <button type="button" id="add-new-address" class="btn btn-primary" style="background-color: transparent; color: var(--primary-color); border: 1px solid var(--primary-color); margin-top: 10px;">
+                                <i class="fas fa-plus"></i> Add New Address
+                            </button>
+                            {% else %}
+                            <!-- New address form -->
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="shipping_name" class="form-label">Full Name</label>
+                                    <input type="text" id="shipping_name" name="shipping_name" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="shipping_street" class="form-label">Street Address</label>
+                                <input type="text" id="shipping_street" name="shipping_street" class="form-control" required>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="shipping_city" class="form-label">City</label>
+                                    <input type="text" id="shipping_city" name="shipping_city" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="shipping_state" class="form-label">State/Province</label>
+                                    <input type="text" id="shipping_state" name="shipping_state" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="shipping_zip" class="form-label">ZIP/Postal Code</label>
+                                    <input type="text" id="shipping_zip" name="shipping_zip" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="shipping_country" class="form-label">Country</label>
+                                    <select id="shipping_country" name="shipping_country" class="form-control" required>
+                                        <option value="United States">United States</option>
+                                        <option value="Canada">Canada</option>
+                                        <option value="United Kingdom">United Kingdom</option>
+                                        <option value="Australia">Australia</option>
+                                        <option value="India">India</option>
+                                    </select>
+                                </div>
+                            </div>
+                            {% if current_user.is_authenticated %}
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="save_address" name="save_address" checked>
+                                <label for="save_address">Save this address for future orders</label>
+                            </div>
+                            {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <!-- Shipping Method -->
+                    <div class="checkout-panel">
+                        <div class="panel-header">
+                            <span>2. Shipping Method</span>
+                        </div>
+                        <div class="panel-content">
+                            <div class="shipping-options">
+                                <div class="shipping-option selected">
+                                    <input type="radio" id="shipping_standard" name="shipping_method" value="standard" checked>
+                                    <div class="shipping-details">
+                                        <div class="shipping-name">Standard Shipping</div>
+                                        <div class="shipping-description">Delivery in 5-7 business days</div>
+                                    </div>
+                                    <div class="shipping-price">₹25</div>
+                                </div>
+                                <div class="shipping-option">
+                                    <input type="radio" id="shipping_express" name="shipping_method" value="express">
+                                    <div class="shipping-details">
+                                        <div class="shipping-name">Express Shipping</div>
+                                        <div class="shipping-description">Delivery in 2-3 business days</div>
+                                    </div>
+                                    <div class="shipping-price">₹50</div>
+                                </div>
+                                <div class="shipping-option">
+                                    <input type="radio" id="shipping_next_day" name="shipping_method" value="next_day">
+                                    <div class="shipping-details">
+                                        <div class="shipping-name">Next Day Delivery</div>
+                                        <div class="shipping-description">Order before 2pm for next day delivery</div>
+                                    </div>
+                                    <div class="shipping-price">₹100</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Billing & Payment -->
+                    <div class="checkout-panel">
+                        <div class="panel-header">
+                            <span>3. Billing & Payment</span>
+                        </div>
+                        <div class="panel-content">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="same_as_shipping" name="same_as_shipping" checked>
+                                <label for="same_as_shipping">Billing address same as shipping address</label>
+                            </div>
+                            
+                            <div id="billing_address_form" style="display: none;">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="billing_name" class="form-label">Full Name</label>
+                                        <input type="text" id="billing_name" name="billing_name" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="billing_street" class="form-label">Street Address</label>
+                                    <input type="text" id="billing_street" name="billing_street" class="form-control">
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="billing_city" class="form-label">City</label>
+                                        <input type="text" id="billing_city" name="billing_city" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="billing_state" class="form-label">State/Province</label>
+                                        <input type="text" id="billing_state" name="billing_state" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="billing_zip" class="form-label">ZIP/Postal Code</label>
+                                        <input type="text" id="billing_zip" name="billing_zip" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="billing_country" class="form-label">Country</label>
+                                        <select id="billing_country" name="billing_country" class="form-control">
+                                            <option value="United States">United States</option>
+                                            <option value="Canada">Canada</option>
+                                            <option value="United Kingdom">United Kingdom</option>
+                                            <option value="Australia">Australia</option>
+                                            <option value="India">India</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="margin-top: 20px;">
+                                <div class="form-label">Payment Method</div>
+                                <div class="card-icons">
+                                    <img src="https://img.icons8.com/color/48/000000/visa.png" class="card-icon" alt="Visa">
+                                    <img src="https://img.icons8.com/color/48/000000/mastercard.png" class="card-icon" alt="Mastercard">
+                                    <img src="https://img.icons8.com/color/48/000000/amex.png" class="card-icon" alt="American Express">
+                                    <img src="https://img.icons8.com/color/48/000000/discover.png" class="card-icon" alt="Discover">
+                                </div>
+                                <div class="form-group">
+                                    <label for="card_holder" class="form-label">Name on Card</label>
+                                    <input type="text" id="card_holder" name="card_holder" class="form-control" required value="{{ card_details.holder if card_details else '' }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="card_number" class="form-label">Card Number</label>
+                                    <input type="text" id="card_number" name="card_number" class="form-control" placeholder="1234 5678 9012 3456" required value="{{ card_details.number if card_details else '' }}">
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="card_expiry" class="form-label">Expiration Date</label>
+                                        <input type="text" id="card_expiry" name="card_expiry" class="form-control" placeholder="MM/YY" required value="{{ card_details.expiry if card_details else '' }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="card_cvv" class="form-label">Security Code (CVV)</label>
+                                        <input type="text" id="card_cvv" name="card_cvv" class="form-control" placeholder="123" required value="{{ card_details.cvv if card_details else '' }}">
+                                    </div>
+                                </div>
+                                
+                                {% if current_user.is_authenticated %}
+                                <div class="checkbox-group">
+                                    <input type="checkbox" id="save_card" name="save_card" checked>
+                                    <label for="save_card">Save this card for future purchases</label>
+                                </div>
+                                {% endif %}
+                                
+                                <div class="security-badge">
+                                    <i class="fas fa-lock"></i>
+                                    <span>Your payment information is secure. We use industry-standard encryption to protect your data.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Additional Options -->
+                    <div class="checkout-panel">
+                        <div class="panel-header">
+                            <span>4. Additional Options</span>
+                        </div>
+                        <div class="panel-content">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="newsletter" name="newsletter" checked>
+                                <label for="newsletter">Subscribe to our newsletter for exclusive offers and updates</label>
+                            </div>
+                            <div class="form-group">
+                                <label for="order_notes" class="form-label">Order Notes (Optional)</label>
+                                <textarea id="order_notes" name="order_notes" class="form-control" rows="3" placeholder="Special instructions for delivery or additional information"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 30px; margin-bottom: 30px;">
+                        <div class="checkout-actions">
+                            <button type="submit" class="btn btn-primary btn-large checkout-btn">
+                                <i class="fas fa-lock"></i> Complete Order
+                            </button>
+                        </div>
+                        <p style="text-align: center; margin-top: 10px; font-size: 13px; color: var(--dark-gray);">
+                            By completing your order, you agree to our <a href="#" style="color: var(--primary-color);">Terms of Service</a> and <a href="#" style="color: var(--primary-color);">Privacy Policy</a>.
+                        </p>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="checkout-sidebar">
+                <div class="checkout-panel">
+                    <div class="panel-header">
+                        <span>Order Summary</span>
+                    </div>
+                    <div class="panel-content">
+                        <div class="order-summary-item">
+                            <img src="{{ product.image_url }}" alt="{{ product.title }}" class="item-image" onerror="this.src='https://via.placeholder.com/80';">
+                            <div class="item-details">
+                                <div class="item-title">{{ product.title }}</div>
+                                <div style="font-size: 13px; color: var(--dark-gray); margin-bottom: 5px;">Quantity: 1</div>
+                                <div class="item-price">{{ product.price }}</div>
+                            </div>
+                        </div>
+                        
+                        <div class="promo-code">
+                            <input type="text" id="promo_code" name="promo_code" class="form-control" placeholder="Promo Code">
+                            <button type="button" id="apply_promo" class="btn btn-primary">Apply</button>
+                        </div>
+                        
+                        <div id="available-coupons" style="margin-top: 15px;">
+                            <div style="font-size: 14px; margin-bottom: 10px; color: var(--primary-color); cursor: pointer;" onclick="toggleCoupons()">
+                                <i class="fas fa-tag"></i> Available Coupons <i id="coupon-toggle-icon" class="fas fa-chevron-down"></i>
+                            </div>
+                            <div id="coupon-list" style="display: none; margin-bottom: 15px;">
+                                <div class="coupon-item" style="border: 1px dashed var(--border-color); padding: 10px; margin-bottom: 8px; border-radius: 4px; cursor: pointer;" onclick="applyCoupon('WELCOME10')">
+                                    <div style="font-weight: 500;">WELCOME10</div>
+                                    <div style="font-size: 12px; color: var(--dark-gray);">10% off your first order</div>
+                                </div>
+                                <div class="coupon-item" style="border: 1px dashed var(--border-color); padding: 10px; margin-bottom: 8px; border-radius: 4px; cursor: pointer;" onclick="applyCoupon('FREESHIP')">
+                                    <div style="font-weight: 500;">FREESHIP</div>
+                                    <div style="font-size: 12px; color: var(--dark-gray);">Free shipping on your order</div>
+                                </div>
+                                <div class="coupon-item" style="border: 1px dashed var(--border-color); padding: 10px; border-radius: 4px; cursor: pointer;" onclick="applyCoupon('SAVE20')">
+                                    <div style="font-weight: 500;">SAVE20</div>
+                                    <div style="font-size: 12px; color: var(--dark-gray);">₹20 off orders over ₹100</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="order-totals">
+                            <div class="total-row">
+                                <span>Subtotal</span>
+                                <span id="subtotal">{{ order_summary.subtotal }}</span>
+                            </div>
+                            <div class="total-row">
+                                <span>Shipping</span>
+                                <span id="shipping">₹25</span>
+                            </div>
+                            <div class="total-row" id="discount-row" style="display: none;">
+                                <span>Discount</span>
+                                <span id="discount">-₹0</span>
+                            </div>
+                            <div class="total-row">
+                                <span>Tax</span>
+                                <span id="tax">{{ order_summary.tax }}</span>
+                            </div>
+                            <div class="total-row final">
+                                <span>Total</span>
+                                <span id="total">{{ order_summary.total }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="checkout-panel">
+                    <div class="panel-content" style="padding: 15px;">
+                        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                            <i class="fas fa-truck" style="color: var(--primary-color); font-size: 18px; margin-right: 10px;"></i>
+                            <div>
+                                <div style="font-weight: 500;">Free shipping on orders over ₹1000</div>
+                                <div style="font-size: 13px; color: var(--dark-gray);">For standard shipping</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                            <i class="fas fa-undo" style="color: var(--primary-color); font-size: 18px; margin-right: 10px;"></i>
+                            <div>
+                                <div style="font-weight: 500;">30-day easy returns</div>
+                                <div style="font-size: 13px; color: var(--dark-gray);">Return policy</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center;">
+                            <i class="fas fa-headset" style="color: var(--primary-color); font-size: 18px; margin-right: 10px;"></i>
+                            <div>
+                                <div style="font-weight: 500;">24/7 Customer Support</div>
+                                <div style="font-size: 13px; color: var(--dark-gray);">Chat or call us anytime</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Billing address toggle
+            const sameAddressCheckbox = document.getElementById('same_as_shipping');
+            const billingAddressForm = document.getElementById('billing_address_form');
+            
+            sameAddressCheckbox.addEventListener('change', function() {
+                billingAddressForm.style.display = this.checked ? 'none' : 'block';
+            });
+            
+            // Check if AI Checkout buttons exist
+            console.log("Checking for AI Checkout buttons...");
+            
+            // Check for AI checkout button
+            const aiBtn = document.getElementById('aiCheckoutBtn');
+            if (aiBtn) {
+                console.log("AI Checkout button found in DOM");
+                aiBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log("AI Checkout button clicked - starting automated checkout process");
+                    
+                    // Show AI checkout in progress
+                    simulateAICheckout();
+                });
+            } else {
+                console.log("AI Checkout button NOT found in DOM");
+            }
+            
+            // Shipping option selection
+            const shippingOptions = document.querySelectorAll('.shipping-option');
+            let currentShippingPrice = '₹25'; // Default shipping price
+            
+            shippingOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    // Remove selected class from all options
+                    shippingOptions.forEach(opt => opt.classList.remove('selected'));
+                    // Add selected class to clicked option
+                    this.classList.add('selected');
+                    // Check the radio button
+                    const radio = this.querySelector('input[type="radio"]');
+                    radio.checked = true;
+                    
+                    // Update shipping price in order summary
+                    const shippingPrice = this.querySelector('.shipping-price').textContent;
+                    document.getElementById('shipping').textContent = shippingPrice;
+                    currentShippingPrice = shippingPrice;
+                    
+                    // Recalculate total
+                    updateOrderTotal();
+                });
+            });
+            
+            // Add new address button
+            const addNewAddressBtn = document.getElementById('add-new-address');
+            if (addNewAddressBtn) {
+                addNewAddressBtn.addEventListener('click', function() {
+                    // In a real app, this would show a form to add a new address
+                    alert('This would show a form to add a new shipping address.');
+                });
+            }
+            
+            // Card input formatting
+            const cardNumberInput = document.getElementById('card_number');
+            const cardExpiryInput = document.getElementById('card_expiry');
+            const cardCvvInput = document.getElementById('card_cvv');
+            
+            if (cardNumberInput) {
+                cardNumberInput.addEventListener('input', function(e) {
+                    // Remove non-digits
+                    let value = this.value.replace(/\D/g, '');
+                    // Add space after every 4 digits
+                    value = value.replace(/(\d{4})(?=\d)/g, '$1 ');
+                    // Limit to 19 characters (16 digits + 3 spaces)
+                    value = value.substring(0, 19);
+                    this.value = value;
+                });
+            }
+            
+            if (cardExpiryInput) {
+                cardExpiryInput.addEventListener('input', function(e) {
+                    // Remove non-digits
+                    let value = this.value.replace(/\D/g, '');
+                    // Format as MM/YY
+                    if (value.length > 2) {
+                        value = value.substring(0, 2) + '/' + value.substring(2, 4);
+                    }
+                    this.value = value;
+                });
+            }
+            
+            if (cardCvvInput) {
+                cardCvvInput.addEventListener('input', function(e) {
+                    // Remove non-digits and limit to 4 characters
+                    this.value = this.value.replace(/\D/g, '').substring(0, 4);
+                });
+            }
+            
+            // Form submission
+            const checkoutForm = document.getElementById('checkout-form');
+            checkoutForm.addEventListener('submit', function(e) {
+                // In a real app, we would validate the form and process the payment
+                console.log('Processing order...');
+                // We don't prevent default so the form submits to our backend
+            });
+            
+            // Coupon code application
+            document.getElementById('apply_promo').addEventListener('click', function() {
+                const promoCode = document.getElementById('promo_code').value.trim().toUpperCase();
+                applyCoupon(promoCode);
+            });
+            
+            // Initialize order total calculation
+            updateOrderTotal();
+        });
+        
+        // Toggle coupon list visibility
+        function toggleCoupons() {
+            const couponList = document.getElementById('coupon-list');
+            const toggleIcon = document.getElementById('coupon-toggle-icon');
+            
+            if (couponList.style.display === 'none') {
+                couponList.style.display = 'block';
+                toggleIcon.className = 'fas fa-chevron-up';
+            } else {
+                couponList.style.display = 'none';
+                toggleIcon.className = 'fas fa-chevron-down';
+            }
+        }
+        
+        // Current applied coupon
+        let currentCoupon = null;
+        
+        // Apply coupon code
+        function applyCoupon(code) {
+            const subtotalElement = document.getElementById('subtotal');
+            const shippingElement = document.getElementById('shipping');
+            const discountElement = document.getElementById('discount');
+            const discountRow = document.getElementById('discount-row');
+            
+            // Extract the numeric value from subtotal (remove currency symbol and commas)
+            const subtotalText = subtotalElement.textContent;
+            const subtotalValue = parseFloat(subtotalText.replace(/[₹,]/g, '')) || 0;
+            
+            let discountAmount = 0;
+            let discountMessage = '';
+            
+            // Apply discount based on coupon code
+            switch(code) {
+                case 'WELCOME10':
+                    discountAmount = subtotalValue * 0.1; // 10% off
+                    discountMessage = '10% discount applied';
+                    break;
+                case 'FREESHIP':
+                    // Set shipping to free instead of a discount
+                    shippingElement.textContent = '₹0';
+                    discountMessage = 'Free shipping applied';
+                    break;
+                case 'SAVE20':
+                    if (subtotalValue >= 100) {
+                        discountAmount = 20;
+                        discountMessage = '₹20 discount applied';
+                    } else {
+                        alert('This coupon requires a minimum order of ₹100');
+                        return;
+                    }
+                    break;
+                default:
+                    if (code) {
+                        alert('Invalid coupon code: ' + code);
+                    }
+                    return;
+            }
+            
+            // Apply the discount
+            if (code === 'FREESHIP') {
+                // Don't show discount row for free shipping
+                if (currentCoupon === 'FREESHIP') {
+                    // If already applied, remove it
+                    shippingElement.textContent = '₹25'; // Reset to default
+                    discountRow.style.display = 'none';
+                    currentCoupon = null;
+                    document.getElementById('promo_code').value = '';
+                    alert('Coupon removed');
+                } else {
+                    currentCoupon = code;
+                    document.getElementById('promo_code').value = code;
+                    discountRow.style.display = 'none';
+                    alert(discountMessage);
+                }
+            } else {
+                if (currentCoupon === code) {
+                    // If same coupon already applied, remove it
+                    discountRow.style.display = 'none';
+                    currentCoupon = null;
+                    document.getElementById('promo_code').value = '';
+                    alert('Coupon removed');
+                } else {
+                    // Apply new coupon
+                    discountElement.textContent = '-₹' + discountAmount.toFixed(0);
+                    discountRow.style.display = 'flex';
+                    currentCoupon = code;
+                    document.getElementById('promo_code').value = code;
+                    alert(discountMessage);
+                }
+            }
+            
+            // Update order total
+            updateOrderTotal();
+        }
+        
+        // Update the order total based on current values
+        function updateOrderTotal() {
+            const subtotalElement = document.getElementById('subtotal');
+            const shippingElement = document.getElementById('shipping');
+            const taxElement = document.getElementById('tax');
+            const discountElement = document.getElementById('discount');
+            const discountRow = document.getElementById('discount-row');
+            const totalElement = document.getElementById('total');
+            
+            // Extract the numeric values (remove currency symbol and commas)
+            const subtotal = parseFloat(subtotalElement.textContent.replace(/[₹,]/g, '')) || 0;
+            const shipping = parseFloat(shippingElement.textContent.replace(/[₹,]/g, '')) || 0;
+            const tax = parseFloat(taxElement.textContent.replace(/[₹,]/g, '')) || 0;
+            
+            // Get discount if visible
+            let discount = 0;
+            if (discountRow.style.display !== 'none') {
+                discount = parseFloat(discountElement.textContent.replace(/[₹,-]/g, '')) || 0;
+            }
+            
+            // Calculate total
+            const total = subtotal + shipping + tax - discount;
+            
+            // Update total display
+            totalElement.textContent = '₹' + total.toFixed(0);
+        }
+        
+        // Function to simulate AI checkout
+        function simulateAICheckout() {
+            // Add a status area above the form to show progress
+            const statusDiv = document.createElement('div');
+            statusDiv.id = 'ai-checkout-status';
+            statusDiv.className = 'checkout-panel';
+            statusDiv.style.marginBottom = '20px';
+            statusDiv.innerHTML = `
+                <div class="panel-header">
+                    <span><i class="fas fa-robot"></i> AI Checkout Status</span>
+                </div>
+                <div class="panel-content" id="ai-status-content">
+                    <p>Starting checkout automation...</p>
+                </div>
+            `;
+            
+            // Insert status panel after the AI button
+            const aiButton = document.getElementById('aiCheckoutBtn');
+            aiButton.parentNode.insertBefore(statusDiv, aiButton.nextSibling);
+            
+            // Create a cursor element that will move around the form
+            const cursor = document.createElement('div');
+            cursor.id = 'ai-cursor';
+            cursor.innerHTML = `<i class="fas fa-hand-pointer"></i>`;
+            cursor.style.position = 'absolute';
+            cursor.style.zIndex = '1000';
+            cursor.style.pointerEvents = 'none';
+            cursor.style.transition = 'all 0.5s ease';
+            cursor.style.color = '#4a6fa5';
+            cursor.style.fontSize = '24px';
+            cursor.style.textShadow = '0 0 10px rgba(74, 111, 165, 0.5)';
+            document.body.appendChild(cursor);
+            
+            // Disable the AI button during automation
+            aiButton.disabled = true;
+            aiButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+            
+            // Start the form filling process
+            fillFormWithAnimation();
+        }
+        
+        // Fill the form with an animated cursor and typing effect
+        function fillFormWithAnimation() {
+            const statusContent = document.getElementById('ai-status-content');
+            const cursor = document.getElementById('ai-cursor');
+            
+            // Fields to fill in sequence
+            const fields = [
+                { id: 'shipping_name', value: 'John Smith', label: 'Full Name' },
+                { id: 'shipping_street', value: '123 Main Street', label: 'Street Address' },
+                { id: 'shipping_city', value: 'New York', label: 'City' },
+                { id: 'shipping_state', value: 'NY', label: 'State' },
+                { id: 'shipping_zip', value: '10001', label: 'ZIP Code' },
+                { id: 'shipping_country', value: 'United States', label: 'Country', isSelect: true },
+                { id: 'card_holder', value: 'John Smith', label: 'Card Holder Name' },
+                { id: 'card_number', value: '4111 1111 1111 1111', label: 'Card Number' },
+                { id: 'card_expiry', value: '12/25', label: 'Card Expiry' },
+                { id: 'card_cvv', value: '123', label: 'Card CVV' },
+            ];
+            
+            statusContent.innerHTML = '<p>Analyzing checkout form...</p>';
+            
+            let currentField = 0;
+            
+            function processNextField() {
+                if (currentField < fields.length) {
+                    const field = fields[currentField];
+                    const element = document.getElementById(field.id);
+                    
+                    if (element) {
+                        // Get element position for cursor animation
+                        const rect = element.getBoundingClientRect();
+                        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                        
+                        // Move cursor to the element
+                        cursor.style.left = (rect.left + 10) + 'px';
+                        cursor.style.top = (rect.top + scrollTop + 10) + 'px';
+                        
+                        // Scroll to make the field visible
+                        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        
+                        // Highlight the field
+                        element.style.transition = 'background-color 0.3s';
+                        element.style.backgroundColor = '#e6f7ff';
+                        element.style.borderColor = '#1890ff';
+                        element.style.boxShadow = '0 0 0 2px rgba(24, 144, 255, 0.2)';
+                        
+                        // Add a click animation to the cursor
+                        setTimeout(() => {
+                            cursor.style.transform = 'scale(0.8)';
+                            setTimeout(() => {
+                                cursor.style.transform = 'scale(1)';
+                            }, 150);
+                        }, 500);
+                        
+                        // Update status
+                        statusContent.innerHTML += `<p>Filling ${field.label}: "${field.value}"</p>`;
+                        
+                        // Focus the field
+                        element.focus();
+                        
+                        // Fill the field value
+                        if (field.isSelect) {
+                            // For select elements
+                            const options = element.options;
+                            for (let i = 0; i < options.length; i++) {
+                                if (options[i].text === field.value) {
+                                    setTimeout(() => {
+                                        element.selectedIndex = i;
+                                        element.dispatchEvent(new Event('change'));
+                                        
+                                        // Process next field after a delay
+                                        currentField++;
+                                        setTimeout(processNextField, 1000);
+                                    }, 500);
+                                    break;
+                                }
+                            }
+                        } else {
+                            // For text inputs - simulate typing
+                            simulateTypingWithCursor(element, field.value, cursor, () => {
+                                // Process next field after typing is complete
+                                currentField++;
+                                setTimeout(processNextField, 500);
+                            });
+                        }
+                    } else {
+                        // If element not found, skip to next
+                        currentField++;
+                        setTimeout(processNextField, 100);
+                    }
+                } else {
+                    // All fields filled - complete the checkout
+                    completeCheckout();
+                }
+            }
+            
+            // Start processing fields after a short delay
+            setTimeout(processNextField, 1000);
+        }
+        
+        // Simulate typing with cursor movement
+        function simulateTypingWithCursor(element, text, cursor, callback) {
+            let i = 0;
+            element.value = '';
+            
+            // Position cursor at the start of the input
+            const rect = element.getBoundingClientRect();
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            cursor.style.left = (rect.left + 10) + 'px';
+            cursor.style.top = (rect.top + scrollTop + 10) + 'px';
+            
+            const typeInterval = setInterval(() => {
+                if (i < text.length) {
+                    // Add next character
+                    element.value += text.charAt(i);
+                    i++;
+                    
+                    // Move cursor along as typing progresses
+                    if (text.charAt(i-1) !== ' ') {
+                        const charWidth = 8; // Approximate width of a character
+                        cursor.style.left = (parseInt(cursor.style.left) + charWidth) + 'px';
+                    }
+                    
+                    // Trigger input event
+                    element.dispatchEvent(new Event('input'));
+                } else {
+                    clearInterval(typeInterval);
+                    
+                    // Reset field highlight after a delay
+                    setTimeout(() => {
+                        element.style.backgroundColor = '';
+                        element.style.borderColor = '';
+                        element.style.boxShadow = '';
+                    }, 300);
+                    
+                    if (callback) callback();
+                }
+            }, 100);
+        }
+        
+        // Complete the checkout process
+        function completeCheckout() {
+            const statusContent = document.getElementById('ai-status-content');
+            const cursor = document.getElementById('ai-cursor');
+            const aiButton = document.getElementById('aiCheckoutBtn');
+            
+            // Update status
+            statusContent.innerHTML += `
+                <p class="success">All fields filled successfully!</p>
+                <p>Submitting order...</p>
+            `;
+            
+            // Move cursor to the submit button
+            const submitBtn = document.querySelector('.checkout-btn');
+            if (submitBtn) {
+                const rect = submitBtn.getBoundingClientRect();
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                
+                // Scroll to the button
+                submitBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // Move cursor to button
+                cursor.style.left = (rect.left + rect.width/2) + 'px';
+                cursor.style.top = (rect.top + scrollTop + rect.height/2) + 'px';
+                
+                // Add click animation
+                setTimeout(() => {
+                    cursor.style.transform = 'scale(0.8)';
+                    setTimeout(() => {
+                        cursor.style.transform = 'scale(1)';
+                        
+                        // Highlight button
+                        submitBtn.style.backgroundColor = '#3d5d8a';
+                        submitBtn.style.boxShadow = '0 0 10px rgba(74, 111, 165, 0.5)';
+                        
+                        // Submit the form after a short delay
+                        setTimeout(() => {
+                            statusContent.innerHTML += `
+                                <p class="success">Order submitted successfully!</p>
+                                <p>Redirecting to confirmation page...</p>
+                            `;
+                            
+                            // Redirect to success page
+                            setTimeout(() => {
+                                window.location.href = "{{ url_for('checkout_success', session_id=session_id) }}";
+                            }, 1500);
+                        }, 500);
+                    }, 150);
+                }, 1000);
+            } else {
+                // If submit button not found, just redirect
+                statusContent.innerHTML += `<p class="success">Completing order...</p>`;
+                
+                // Redirect to success page
+                setTimeout(() => {
+                    window.location.href = "{{ url_for('checkout_success', session_id=session_id) }}";
+                }, 1500);
+            }
+            
+            // Remove cursor and reset button after redirection
+            setTimeout(() => {
+                if (cursor) cursor.remove();
+                if (aiButton) {
+                    aiButton.disabled = false;
+                    aiButton.innerHTML = '<i class="fas fa-robot"></i> Complete with AI Assistant';
+                }
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.name }} - Shopping Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        /* Additional styles for product detail page */
+        .product-detail {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 2rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .product-detail-image {
+            width: 100%;
+            height: auto;
+            max-height: 400px;
+            object-fit: contain;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            padding: 1rem;
+        }
+        
+        .product-detail-info h1 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+        
+        .product-detail-meta {
+            margin-bottom: 1.5rem;
+        }
+        
+        .product-detail-price {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .product-detail-description {
+            margin: 1.5rem 0;
+            line-height: 1.6;
+        }
+        
+        .add-to-cart {
+            padding: 0.75rem 1.5rem;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            margin-top: 1rem;
+        }
+        
+        .add-to-cart:hover {
+            background-color: #e59400;
+        }
+        
+        .similar-products {
+            margin-top: 2rem;
+        }
+        
+        .similar-products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            grid-gap: 1.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .product-detail {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container header-content">
+            <div class="logo">
+                <a href="/" style="text-decoration: none; color: inherit;">Shop<span>AI</span></a>
+            </div>
+            <form id="search-form" class="search-form">
+                <input type="text" id="search-input" class="search-input" placeholder="Search for products..." autocomplete="off">
+            </form>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Product Detail -->
+        {% if product %}
+        <div class="product-detail">
+            <div class="product-detail-image-container">
+                <img src="{{ product.image_path }}" alt="{{ product.name }}" class="product-detail-image">
+            </div>
+            <div class="product-detail-info">
+                <h1>{{ product.name }}</h1>
+                <div class="product-detail-meta">
+                    <div class="product-category">{{ product.category }} / {{ product.sub_category }}</div>
+                    <div class="product-rating">
+                        <span class="rating-stars">
+                            {% set full_stars = product.rating|int %}
+                            {% set half_star = (product.rating - full_stars) >= 0.5 %}
+                            {% set empty_stars = 5 - full_stars - (1 if half_star else 0) %}
+                            {{ '★' * full_stars }}{{ '½' if half_star else '' }}{{ '☆' * empty_stars }}
+                        </span>
+                        <span class="rating-count">({{ product.rating_count }} reviews)</span>
+                    </div>
+                </div>
+                <div class="product-detail-price">
+                    <span class="discount-price">{{ product.discount_price }}</span>
+                    <span class="actual-price">{{ product.actual_price }}</span>
+                </div>
+                <div class="product-detail-description">
+                    <p>{{ product.description }}</p>
+                </div>
+                <button class="add-to-cart">Add to Cart</button>
+            </div>
+        </div>
+
+        <!-- Similar Products Section -->
+        <div class="similar-products">
+            <h2 class="section-title">You May Also Like</h2>
+            <div class="similar-products-grid">
+                {% for product in recommendations %}
+                <div class="product-card" onclick="window.location.href='/product/{{ product.id }}'">
+                    <img src="{{ product.image_path }}" alt="{{ product.name }}" class="product-image">
+                    <div class="product-details">
+                        <h3 class="product-title">{{ product.name }}</h3>
+                        <div class="product-price">
+                            <span class="discount-price">{{ product.discount_price }}</span>
+                            <span class="actual-price">{{ product.actual_price }}</span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% else %}
+        <div style="text-align: center; padding: 3rem;">
+            <h2>Product not found</h2>
+            <p>Sorry, we couldn't find the product you were looking for.</p>
+            <a href="/" style="display: inline-block; margin-top: 1rem; padding: 0.75rem 1.5rem; background-color: var(--primary-color); color: white; text-decoration: none; border-radius: 4px;">Go Back Home</a>
+        </div>
+        {% endif %}
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html> 
