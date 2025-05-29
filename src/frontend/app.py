@@ -13,6 +13,15 @@ from flask_login import LoginManager, UserMixin, login_user, logout_user, login_
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime, timedelta
 
+# Add support for Azure Storage
+try:
+    sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+    from azure_storage import upload_image, delete_image
+    HAS_AZURE_STORAGE = True
+except ImportError:
+    HAS_AZURE_STORAGE = False
+    print("Azure Storage module not found. Using local file storage instead.")
+
 # Function to log user interactions
 def log_interaction(interaction_type, product_info):
     """
@@ -128,7 +137,9 @@ def create_app():
 
     # Database setup
     project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{os.path.join(project_root, "database", "appain.db")}'
+    db_dir = os.path.join(project_root, "database")
+    os.makedirs(db_dir, exist_ok=True)
+    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{os.path.join(db_dir, "appain.db")}'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.init_app(app)
 
@@ -331,121 +342,141 @@ def create_app():
         """Serve static images."""
         return app.send_static_file(f'img/{filename}')
 
+    @app.route('/uploads/<filename>')
+    def uploaded_file(filename):
+        """Serve uploaded files."""
+        return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+
     @app.route('/api/search', methods=['POST'])
     def search():
-        """Handle search requests with text and/or image input."""
-        try:
-            # Get text query if any
-            text_query = request.form.get('text', '')
-            reset = request.form.get('reset', 'true').lower() == 'true'
-            
-            # Check for retrieved indices from previous search
-            retrieved_idx = None
-            if 'retrieved_idx' in request.form and request.form['retrieved_idx']:
-                try:
-                    retrieved_idx = json.loads(request.form['retrieved_idx'])
-                except json.JSONDecodeError:
-                    pass
-            
-            # Process uploaded image if any
-            if 'image' in request.files:
-                file = request.files['image']
-                if file and file.filename:
-                    filename = werkzeug.utils.secure_filename(file.filename)
+        """Handle search requests."""
+        # Extract data from the request
+        data = request.json
+        
+        # Check if this is an image search
+        if 'image' in data and data['image']:
+            image_data = data['image']
+            # Handle base64 image data
+            if image_data.startswith('data:image'):
+                # Extract the base64 part
+                image_data = image_data.split(',')[1]
+                import base64
+                from io import BytesIO
+                # Decode base64 and create a file-like object
+                image_stream = BytesIO(base64.b64decode(image_data))
+                
+                # Create a unique filename
+                filename = f"{uuid.uuid4()}.jpg"
+                
+                # Use Azure Storage if available, otherwise save locally
+                if HAS_AZURE_STORAGE:
+                    # Upload to Azure Blob Storage
+                    image_url = upload_image(image_stream, filename)
+                    print(f"Image uploaded to Azure: {image_url}")
+                else:
+                    # Save to local upload folder
                     image_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-                    file.save(image_path)
-                    # Store image path in session for future searches
-                    session['last_image_path'] = image_path
-            
-            # Always use the last uploaded image (from session) or a default one
-            image_path = session.get('last_image_path')
-            
-            # If no image has been uploaded yet, return an error
-            if not image_path:
-                return jsonify({
-                    'success': False,
-                    'error': 'Image input is required. Please upload an image.'
-                }), 400
-            
-            # Log the search interaction
-            if text_query:
-                search_info = {
-                    'query': text_query,
-                    'filters': request.form.get('filters', '')
-                }
-                log_interaction('search', search_info)
-            
-            # Call the main pipeline
-            indices, metadata = main_pipeline(
-                modification_text=text_query,
-                reset=reset,
-                image_path=image_path,
-            )
-            
-            # Format products for display
-            products = []
-            
-            # Calculate discount percentage helper function
-            def calculate_discount(price, actual_price):
-                try:
-                    # Remove currency symbols and commas
-                    price_clean = price.replace('₹', '').replace(',', '').strip() if isinstance(price, str) else price
-                    actual_price_clean = actual_price.replace('₹', '').replace(',', '').strip() if isinstance(actual_price, str) else actual_price
-                    
-                    # Convert to float
-                    price_value = float(price_clean)
-                    actual_price_value = float(actual_price_clean)
-                    
-                    if actual_price_value > 0:
-                        discount = ((actual_price_value - price_value) / actual_price_value) * 100
-                        return round(discount)
-                    return 0
-                except (ValueError, TypeError, AttributeError):
-                    return 0
-                    
-            for idx in indices[:20]:  # Limit to top 20 results
-                item = metadata[idx]
+                    with open(image_path, 'wb') as f:
+                        f.write(image_stream.getvalue())
+                    image_url = f"/uploads/{filename}"
+                    print(f"Image saved locally: {image_path}")
                 
-                # Extract product title from metadata
-                title = make_serializable(item.get('name', ''))
-                
-                # Make product data serializable
-                product = {
-                    'image_path': image_path,
-                    'image_url': make_serializable(item.get('image_url', '')),
-                    'title': title,
-                    'description': make_serializable(item.get('discription', '')),
-                    'price': make_serializable(item.get('price', '')),
-                    'actual_price': make_serializable(item.get('actual_price', '')),
-                    'rating': make_serializable(item.get('rating', 0)),
-                    'rating_count': make_serializable(item.get('rating_count', 0)),
-                    'discount': calculate_discount(item.get('price', ''), item.get('actual_price', '')),
-                    'id': make_serializable(idx),
-                    'tags': make_serializable(item.get('tags', []))
-                }
-                products.append(product)
-        
-            # Create response data
-            response_data = {
-                'success': True,
-                'indices': indices.tolist() if isinstance(indices, np.ndarray) else indices,
-                'products': products
-            }
+                # Update the image data in the request
+                data['image'] = image_url
             
-            # Return the response using flask.Response directly with our custom encoder
-            return app.response_class(
-                response=json.dumps(response_data, cls=NumpyEncoder),
-                status=200,
-                mimetype='application/json'
-            )
+        # Get text query if any
+        text_query = data.get('text', '')
+        reset = data.get('reset', 'true').lower() == 'true'
         
-        except Exception as e:
-            import traceback
-            print(traceback.format_exc())
+        # Check for retrieved indices from previous search
+        retrieved_idx = None
+        if 'retrieved_idx' in data and data['retrieved_idx']:
+            try:
+                retrieved_idx = json.loads(data['retrieved_idx'])
+            except json.JSONDecodeError:
+                pass
+        
+        # Always use the last uploaded image (from session) or a default one
+        image_path = data.get('image')
+        
+        # If no image has been uploaded yet, return an error
+        if not image_path:
             return jsonify({
                 'success': False,
-                'error': str(e)
-            }), 500
+                'error': 'Image input is required. Please upload an image.'
+            }), 400
+        
+        # Log the search interaction
+        if text_query:
+            search_info = {
+                'query': text_query,
+                'filters': data.get('filters', '')
+            }
+            log_interaction('search', search_info)
+        
+        # Call the main pipeline
+        indices, metadata = main_pipeline(
+            modification_text=text_query,
+            reset=reset,
+            image_path=image_path,
+        )
+        
+        # Format products for display
+        products = []
+        
+        # Calculate discount percentage helper function
+        def calculate_discount(price, actual_price):
+            try:
+                # Remove currency symbols and commas
+                price_clean = price.replace('₹', '').replace(',', '').strip() if isinstance(price, str) else price
+                actual_price_clean = actual_price.replace('₹', '').replace(',', '').strip() if isinstance(actual_price, str) else actual_price
+                
+                # Convert to float
+                price_value = float(price_clean)
+                actual_price_value = float(actual_price_clean)
+                
+                if actual_price_value > 0:
+                    discount = ((actual_price_value - price_value) / actual_price_value) * 100
+                    return round(discount)
+                return 0
+            except (ValueError, TypeError, AttributeError):
+                return 0
+                    
+        for idx in indices[:20]:  # Limit to top 20 results
+            item = metadata[idx]
+            
+            # Extract product title from metadata
+            title = make_serializable(item.get('name', ''))
+            
+            # Make product data serializable
+            product = {
+                'image_path': image_path,
+                'image_url': make_serializable(item.get('image_url', '')),
+                'title': title,
+                'description': make_serializable(item.get('discription', '')),
+                'price': make_serializable(item.get('price', '')),
+                'actual_price': make_serializable(item.get('actual_price', '')),
+                'rating': make_serializable(item.get('rating', 0)),
+                'rating_count': make_serializable(item.get('rating_count', 0)),
+                'discount': calculate_discount(item.get('price', ''), item.get('actual_price', '')),
+                'id': make_serializable(idx),
+                'tags': make_serializable(item.get('tags', []))
+            }
+            products.append(product)
+    
+        # Create response data
+        response_data = {
+            'success': True,
+            'indices': indices.tolist() if isinstance(indices, np.ndarray) else indices,
+            'products': products
+        }
+        
+        # Return the response using flask.Response directly with our custom encoder
+        return app.response_class(
+            response=json.dumps(response_data, cls=NumpyEncoder),
+            status=200,
+            mimetype='application/json'
+        )
 
     @app.route('/api/view-product', methods=['POST'])
     def view_product():
@@ -913,8 +944,8 @@ def create_app():
     def reset():
         """Reset the chat state."""
         # Clear the stored image path
-        if 'last_image_path' in session:
-            session.pop('last_image_path')
+        if 'image' in session:
+            session.pop('image')
         return jsonify({'success': True})
         
     @app.route('/ai-checkout.js')

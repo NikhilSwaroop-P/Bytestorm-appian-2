@@ -1,0 +1,10 @@
+# API Keys
+VOYAGE_API_KEY=your_voyage_api_key_here
+
+# Flask Configuration
+SECRET_KEY=your_secret_key_here
+FLASK_ENV=production
+
+# Azure Storage (for storing uploaded images)
+AZURE_STORAGE_CONNECTION_STRING=your_connection_string_here
+AZURE_STORAGE_CONTAINER_NAME=appain-uploads 

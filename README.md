@@ -1,5 +1,14 @@
 # AI-Powered Product Discovery and Checkout Pipeline
-![pipeline_visualization](https://github.com/user-attachments/assets/eef8fac9-6cdc-44fb-aaf0-1d89e94528b8)
+Pipeline visualization: https://github.com/user-attachments/assets/eef8fac9-6cdc-44fb-aaf0-1d89e94528b8
+
+> Additional pipeline diagrams are available in the [pipelines folder](https://github.com/NikhilSwaroop-P/Bytestorm-appian-2/tree/main/pipelines):
+> - [Query Processing Block](https://github.com/NikhilSwaroop-P/Bytestorm-appian-2/blob/main/pipelines/block_query_processing.png)
+> - [Image Processing Block](https://github.com/NikhilSwaroop-P/Bytestorm-appian-2/blob/main/pipelines/block_image_processing.png)
+> - [Retrieval Block](https://github.com/NikhilSwaroop-P/Bytestorm-appian-2/blob/main/pipelines/block_retrieval.png)
+> - [Filtering Block](https://github.com/NikhilSwaroop-P/Bytestorm-appian-2/blob/main/pipelines/block_filtering.png)
+> - [UI Components](https://github.com/NikhilSwaroop-P/Bytestorm-appian-2/blob/main/pipelines/pipeline_ui_components.png)
+> - [AI Checkout Flow](https://github.com/NikhilSwaroop-P/Bytestorm-appian-2/blob/main/pipelines/pipeline_ai_checkout.png)
+> - [Complete Pipeline Visualization](https://github.com/NikhilSwaroop-P/Bytestorm-appian-2/blob/main/pipelines/pipeline_visualization.png)
 
 ## Project Overview
 
@@ -106,3 +115,48 @@ The pipeline processes inputs through a series of specialized modules that analy
 - Streamlined checkout processes
 
 This architecture provides a complete end-to-end solution for AI-driven shopping experiences, from initial product search to final purchase confirmation. 
+
+## 🚀 How to Use
+
+### 1. 📥 Clone the Repository
+
+```bash
+git clone https://github.com/NikhilSwaroop-P/Bytestorm-appian-2.git
+cd Bytestorm-appian-2
+```
+
+### 2. 🔑 Set Your API Key
+
+**On macOS/Linux:**
+
+```bash
+export VOYAGE_API_KEY=your_api_key_here
+```
+
+**On Windows (Command Prompt):**
+
+```cmd
+set VOYAGE_API_KEY=your_api_key_here
+```
+
+### 3. 📦 Install Dependencies
+
+Make sure you have Python 3.8+ installed, then install the required packages:
+
+```bash
+pip install -r requirements.txt
+```
+
+### 4. ▶️ Run the Application
+
+```bash
+python run_frontend.py
+```
+
+### 5. 🌐 Access the UI
+
+Open your browser and go to:
+
+```
+http://localhost:5000
+``` 
