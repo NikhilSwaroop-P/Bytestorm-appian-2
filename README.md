@@ -10,6 +10,15 @@ Pipeline visualization: https://github.com/user-attachments/assets/eef8fac9-6cdc
 > - [AI Checkout Flow](https://github.com/NikhilSwaroop-P/Bytestorm-appian-2/blob/main/pipelines/pipeline_ai_checkout.png)
 > - [Complete Pipeline Visualization](https://github.com/NikhilSwaroop-P/Bytestorm-appian-2/blob/main/pipelines/pipeline_visualization.png)
 
+> Additional pipeline diagrams are available in the [pipelines folder](https://github.com/NikhilSwaroop-P/Bytestorm-appian-2/tree/main/pipelines):
+> - [Query Processing Block](https://github.com/NikhilSwaroop-P/Bytestorm-appian-2/blob/main/pipelines/block_query_processing.png)
+> - [Image Processing Block](https://github.com/NikhilSwaroop-P/Bytestorm-appian-2/blob/main/pipelines/block_image_processing.png)
+> - [Retrieval Block](https://github.com/NikhilSwaroop-P/Bytestorm-appian-2/blob/main/pipelines/block_retrieval.png)
+> - [Filtering Block](https://github.com/NikhilSwaroop-P/Bytestorm-appian-2/blob/main/pipelines/block_filtering.png)
+> - [UI Components](https://github.com/NikhilSwaroop-P/Bytestorm-appian-2/blob/main/pipelines/pipeline_ui_components.png)
+> - [AI Checkout Flow](https://github.com/NikhilSwaroop-P/Bytestorm-appian-2/blob/main/pipelines/pipeline_ai_checkout.png)
+> - [Complete Pipeline Visualization](https://github.com/NikhilSwaroop-P/Bytestorm-appian-2/blob/main/pipelines/pipeline_visualization.png)
+
 ## Project Overview
 
 This project implements an advanced AI-driven product discovery and checkout system that enables users to search for products using both text queries and images. The pipeline integrates computer vision, natural language processing, and search techniques to create a seamless shopping experience from initial product discovery to final checkout.
@@ -150,7 +159,11 @@ pip install -r requirements.txt
 ### 4. ▶️ Run the Application
 
 ```bash
+<<<<<<< HEAD
 python run_frontend.py
+=======
+python app.py
+>>>>>>> d03865a1e9fbef09b211416400a3cd95155a792f
 ```
 
 ### 5. 🌐 Access the UI
