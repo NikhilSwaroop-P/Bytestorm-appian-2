@@ -1,6 +1,9 @@
 # AI-Powered Product Discovery and Checkout Pipeline
 Pipeline visualization: https://github.com/user-attachments/assets/eef8fac9-6cdc-44fb-aaf0-1d89e94528b8
 
+demo video [https://drive.google.com/file/d/1ozykQQkHnTc8M-sjFfQvys4Zw2LskHYQ/view?usp=sharing](https://drive.google.com/file/d/1w0VicqLZej-NrD4U41VTQqQ9Q-cei7DG/view?usp=sharing)
+
+
 > Additional pipeline diagrams are available in the [pipelines folder](https://github.com/NikhilSwaroop-P/Bytestorm-appian-2/tree/main/pipelines):
 > - [Query Processing Block](https://github.com/NikhilSwaroop-P/Bytestorm-appian-2/blob/main/pipelines/block_query_processing.png)
 > - [Image Processing Block](https://github.com/NikhilSwaroop-P/Bytestorm-appian-2/blob/main/pipelines/block_image_processing.png)
